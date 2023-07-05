@@ -28,10 +28,10 @@
     }
   </style>
 <script>
-    node : node_list,
-    edge : edge_list,
 	//增加监听事件，函数内初始化
     document.addEventListener('DOMContentLoaded', function () {
+            var nodes = {{ nodes | safe }};
+            var edges = {{ edges | safe }};
       var cy = window.cy = cytoscape({
         container: document.getElementById('cy'),	//container的值为DOM容器，表示显示图表的位置
         style: [	//设置样式的样式表
@@ -61,11 +61,10 @@
             }
           }
         ],
-        elements: {		//初始化元素
-          nodes: [],
-          edges: []
-        },
-	//设置布局
+        elements: {
+                nodes: nodes,
+                edges: edges
+              },
         layout: {
           name: 'cose',	//一种默认布局方式
         }

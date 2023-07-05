@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="/static/bootstrap/css/elegant-icons-style.css" rel="stylesheet"/>
+    <link href="/static/bootstrap/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- Custom styles -->
+    <link href="/static/bootstrap/css/style.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/style-responsive.css" rel="stylesheet"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src="/static/bootstrap/js/html5shiv.js"></script>
+    <script src="/static/bootstrap/js/respond.min.js"></script>
+    <script src="/static/bootstrap/js/lte-ie7.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!-- container section start -->
+<section id="container" class="">
+    <!--    <div class="row">-->
+    <!--        <section class="panel">-->
+    <!--            <header class="header">-->
+    <!--                <a class="logo">logo</a>-->
+    <!--            </header>-->
+    <!--        </section>-->
+    <!--    </div>-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading tab-bg-primary">
+                    <ul class="nav nav-tabs">
+                        <li class="">
+                            <a data-toggle="tab" href="#proteins">
+                                Proteins
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a data-toggle="tab" href="#visualizing">
+                                Visualizing
+                            </a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" href="#networks">
+                                Networks
+                            </a>
+                        </li>
+                    </ul>
+                </header>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div id="proteins" class="tab-pane">
+                        </div>
+                        <div id="visualizing" class="tab-pane active">
+                            <div class="row">
+                                <!--left side start-->
+                                <div class="col-sm-3">
+                                    <section class="panel">
+                                        <div class="panel-heading">
+                                            Search By
+                                        </div>
+                                        <div class="nav search-row" id="top_menu">
+                                            <!--  search form start -->
+                                            <form action="" method="post">
+                                                <li class="dropdown">
+                                                    <a href="javascript:;" class="dropdown-toggle"
+                                                       data-toggle="dropdown">core/periphery<b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">core</a></li>
+                                                        <li><a href="#">periphery</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="javascript:;" class="dropdown-toggle"
+                                                       data-toggle="dropdown">Symptomatic/Asymptomatic<b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">Symptomatic</a></li>
+                                                        <li><a href="#">Asymptomatic</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="javascript:;" class="dropdown-toggle"
+                                                       data-toggle="dropdown">Calcified/Noncalcified<b class="caret"></b></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">Calcified</a></li>
+                                                        <li><a href="#">Noncalcified</a></li>
+                                                    </ul>
+                                                </li>
+                                                <input type="submit" name="search_protein" value="search">
+                                            </form>
+                                            <!--  search form end -->
+                                        </div>
+                                    </section>
+                                </div>
+                                <!--left side end-->
+                                <div class="col-sm-9">
+                                    <section class="panel">
+                                        <div class="panel-heading">
+                                            Result List
+                                        </div>
+                                        <table class="table table-striped table-advance table-hover">
+                                            <tbody>
+                                            <tr>
+                                                <th>id</th>
+                                                <th>name</th>
+                                                <th>show</th>
+                                            </tr>
+                                            {% for protein in proteins_list %}
+                                            <tr>
+                                                <td>{{ protein.id }}</td>
+                                                <td>{{ protein.uniprot_id }}</td>
+                                                <td>
+                                                    <button data-original-title="Popovers in left"
+                                                            data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                                            data-placement="left"
+                                                            data-trigger="hover" class="btn btn-info popovers">Show
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="networks" class="tab-pane">Contact</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<!-- container section end -->
+</body>
+</html>
+<style>
+
+</style>

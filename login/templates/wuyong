@@ -1,0 +1,11 @@
+elements: {
+          nodes: [		//节点数据
+            { data: { id:'n1',name: '江户川柯南' } },
+            { data: { id:'n2',name: '毛利兰' } },
+            { data: { id:'n3',name: '工藤新一' } },
+          ],
+          edges: [		//边的数据
+          { data: { id:'e1',relationship: '照顾', source: 'n2', target: 'n1' } },
+          { data: { id:'e2',relationship: '情侣', source: 'n3', target: 'n2' } },
+          ]
+        }
