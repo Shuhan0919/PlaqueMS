@@ -32,25 +32,19 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-
 from django.contrib import admin
 from django.urls import path, include, re_path
 from login import views
 
-from revproxy.views import ProxyView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.proteins_info),
+    path('insertFileName/', views.insert_file),
     path('plot/', views.pic_info),
     path('cy/', views.network_info),
-    path('insert/', views.insert),
     path('tryc/', views.try_curl),
-    # path('relationship/',views.proteins_info),
+    path('tryc2/', views.try_curl2),
     re_path(r'^doc(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    # re_path(r'^new_req(?P<path>.*)', ProxyView.as_view(upstream='http://localhost:1234/v1/networks.json')),
-    re_path(r'^new_req(?P<path>.*)', ProxyView.as_view(upstream='http://localhost:1234/v1')),
 ]
-
-

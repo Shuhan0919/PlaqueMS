@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>cytoscape demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <!-- 导入cytoscape.js库-->
+  <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+<style>
+    body {
+      font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
+    }
+    #cy {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+      opacity: 0.7;
+    }
+    h1 {
+      color:#3366FF;
+      opacity: 0.5;
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+<script>
+	//增加监听事件，函数内初始化
+    document.addEventListener('DOMContentLoaded', function () {
+            var nodes = {{ nodes | safe }};
+            var edges = {{ edges | safe }};
+      var cy = window.cy = cytoscape({
+        container: document.getElementById('cy'),	//container的值为DOM容器，表示显示图表的位置
+        style: [	//设置样式的样式表
+          {
+            selector: 'node',	//设置节点样式
+            css: {
+              'content': 'data(name)',
+               'color':'black',
+               'text-valign': 'center',
+               'text-outline-color': '#6699FF',
+               'background-color': '#6699FF',
+               'height': 10,
+                'width': 10,
+                'font-size':'5px',
+                'font-weight': 'bold',
+            }
+          },
+          {
+            selector: 'edge',	//设置边的样式
+            css: {
+            'content':'data(relationship)',
+              'curve-style': 'bezier',	//曲线类型为贝塞尔曲线
+<!--              'target-arrow-shape': 'triangle',-->
+             'line-color': '#CCCCCC',
+             'width': 1,
+             'font-size':'14px',
+            }
+          }
+        ],
+        elements: {
+                nodes: nodes,
+                edges: edges
+              },
+        layout: {
+          name: 'cose',	//一种默认布局方式
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Cytoscape</h1>
+  <div id="cy"></div>
+</body>
+
+</html>
