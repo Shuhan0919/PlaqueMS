@@ -1,0 +1,7 @@
+Total Number of Molecules=316
+Total Number of Molecules with missing values less than allowed threshold=316
+Percentage of Missing Values in all molecules=0.0
+Anova test was used for multiple phenotypes comparison
+Limma was used for pairwise comparisons
+Limma was used for pairwise comparisons
+Limma was used for pairwise comparisons

@@ -84,7 +84,8 @@
                                                 </li>
                                                 <li class="dropdown">
                                                     <a href="javascript:;" class="dropdown-toggle"
-                                                       data-toggle="dropdown">Symptomatic/Asymptomatic<b class="caret"></b></a>
+                                                       data-toggle="dropdown">Symptomatic/Asymptomatic<b
+                                                            class="caret"></b></a>
                                                     <ul class="dropdown-menu">
                                                         <li><a href="#">Symptomatic</a></li>
                                                         <li><a href="#">Asymptomatic</a></li>
@@ -92,7 +93,8 @@
                                                 </li>
                                                 <li class="dropdown">
                                                     <a href="javascript:;" class="dropdown-toggle"
-                                                       data-toggle="dropdown">Calcified/Noncalcified<b class="caret"></b></a>
+                                                       data-toggle="dropdown">Calcified/Noncalcified<b
+                                                            class="caret"></b></a>
                                                     <ul class="dropdown-menu">
                                                         <li><a href="#">Calcified</a></li>
                                                         <li><a href="#">Noncalcified</a></li>
@@ -117,21 +119,42 @@
                                                 <th>name</th>
                                                 <th>show</th>
                                             </tr>
-                                            {% for protein in proteins_list %}
+                                            {% for pic in page_obj %}
                                             <tr>
-                                                <td>{{ protein.id }}</td>
-                                                <td>{{ protein.uniprot_id }}</td>
+                                                <td>{{ pic.id }}</td>
+                                                <td>{{ pic.filename }}</td>
                                                 <td>
-                                                    <button data-original-title="Popovers in left"
-                                                            data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-                                                            data-placement="left"
-                                                            data-trigger="hover" class="btn btn-info popovers">Show
-                                                    </button>
+                                                    <!--                                                    <button data-original-title="Popovers in left"-->
+                                                    <!--                                                            data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."-->
+                                                    <!--                                                            data-placement="left"-->
+                                                    <!--                                                            data-trigger="hover" class="btn btn-info popovers">Show-->
+                                                    <!--                                                    </button>-->
+                                                    <div>
+                                                        <img src={{pic.filepath}} alt={{pic.filename}} width="100"
+                                                             height="100">
+                                                    </div>
                                                 </td>
                                             </tr>
                                             {% endfor %}
                                             </tbody>
                                         </table>
+                                        <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+                                        </div>
                                     </section>
                                 </div>
                             </div>

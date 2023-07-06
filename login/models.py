@@ -14,6 +14,15 @@ class Proteins(models.Model):
 
     class Meta:
         db_table = 'Proteins'
+
+class pictures(models.Model):
+    id = models.CharField('id', primary_key=True, max_length=25)
+    filename = models.CharField('filename',max_length=100)
+    filepath = models.CharField('filepath',max_length=250)
+    pic_type = models.CharField('pic_type',max_length=5)
+
+    class Meta:
+        db_table = 'pictures'
 # Statistics
 # class Statistics(models.Model):
 #     id = models.CharField('id', primary_key=True, max_length=25)

@@ -2,10 +2,11 @@ import json
 
 from django.shortcuts import render, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from django.core.paginator import Paginator
 from login import models
-import random
 import urllib3
+import uuid
+import os
 
 """
 get proteins
@@ -16,13 +17,22 @@ get proteins
 def proteins_info(request):
     if request.method == 'GET':
         proteins_list = models.Proteins.objects.all()
-        return render(request, 'general.html', locals())
+        paginator = Paginator(proteins_list, 2)  # Show 25 contacts per page.
+
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        return render(request, "general.html", {"page_obj": page_obj})
     elif request.POST.get('search_protein'):
         proteins_name = request.POST.get("protein_name")
         uniprot_id = request.POST.get("uniprot_id")
         proteins_list = models.Proteins.objects.all().filter(protein_name__icontains=proteins_name).filter(
             uniprot_id__icontains=uniprot_id)
-        return render(request, 'general.html', locals())
+
+        paginator = Paginator(proteins_list, 2)  # Show 25 contacts per page.
+
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        return render(request, "general.html", {"page_obj": page_obj})
 
 
 """
@@ -30,35 +40,21 @@ get pics
 """
 
 
-@csrf_exempt
 def pic_info(request):
-    return render(request, 'plot.html')
+    pic_list = models.pictures.objects.all()
+    paginator = Paginator(pic_list, 5)  # Show 25 contacts per page.
 
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, "plot.html", {"page_obj": page_obj, 'pic_list': pic_list})
 
 """
-get networks
+get network cytoscape page
 """
-
-
 @csrf_exempt
 def network_info(request):
     return render(request, 'cytoscape.html')
 
-
-"""
-insert fake data
-"""
-
-"""
-分页 还没做
-"""
-# def data(res):
-#     messages = table1.objects.all()  # 获取全部数据
-#     limit = 20
-#     paginator = Paginator(messages, limit)  # 按每页10条分页
-#     page = res.GET.get('page', '1')  # 默认跳转到第一页
-#     result = paginator.page(page)
-#     return render(res, 'data.html', {'messages': result,'op1':'active'})
 
 """
 curl get one large network
@@ -100,7 +96,7 @@ def try_curl2(request):
 
 def insert(request):
     for i in range(0, 5):
-        id = int(random.uniform(0, 1) * 10000000000)
+        id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
         protein = models.Proteins()
         protein.id = id
         protein.uniprot_id = id
@@ -111,22 +107,18 @@ def insert(request):
     return HttpResponse('insert complete')
 
 
-import os
-import codecs  # 读取文件夹中的文件名
-
-
+# insert pic to mysql
 def insert_file(request):
-    folder = '/path/to/folder'
+    folder = 'static/PlaqueMS_data/guhcl/core/ultrasound/boxplots/'
     filenames = os.listdir(folder)
-
+    filepath_prefix = '../static/PlaqueMS_data/guhcl/core/ultrasound/boxplots/'
     for filename in filenames:
-        f.write(filename + '\n')
-        protein = models.Proteins()
-        protein.id = id
-        protein.uniprot_id = id
-        protein.protein_name = 'protein' + str(i)
-        protein.gene_symbol = ''
+        id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+        pic = models.pictures()
+        pic.id = id
+        pic.filename = filename
+        pic.filepath = filepath_prefix + filename
+        pic.pic_type = '00'
         # insert
-        protein.save()
-
+        pic.save()
     return HttpResponse('insert complete')
