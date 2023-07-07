@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
-from login import models
+from login import models, forms
 import urllib3
 import uuid
 import os
@@ -40,17 +40,36 @@ get pics
 """
 
 
+@csrf_exempt
 def pic_info(request):
-    pic_list = models.pictures.objects.all()
-    paginator = Paginator(pic_list, 5)  # Show 25 contacts per page.
+    if request.method == 'GET':
+        pic_list = models.pictures.objects.all()
+        paginator = Paginator(pic_list, 5)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        return render(request, "plot.html", {"page_obj": page_obj})
+    elif request.POST.get('search_pic'):
+        # if (request.POST.get("sample_type") != '' & request.POST.get("pic_type") != ''):
+        sample_type = request.POST.get("sample_type")
+        pic_type = request.POST.get("pic_type")
+        extraction_type = request.POST.get("extraction_type")
+        sql = "select p.id, p.filename, p.filepath, p.pic_type from pictures as p left join pic_and_experiment c on p.id = c.pic_id LEFT JOIN experiments e on c.experiment_id = e.id where e.sample_type = '" + sample_type + "' and p.pic_type = '" + pic_type + "' and e.extraction_type = '" + extraction_type + "'"
+        pic_list = models.pictures.objects.raw(sql)
+        paginator = Paginator(pic_list, 5)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        return render(request, "plot.html", {"page_obj": page_obj})
+    # else:
+    #     print("=======================")
+    #     print("bad")
+    #     return render(request, "plot.html")
 
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    return render(request, "plot.html", {"page_obj": page_obj, 'pic_list': pic_list})
 
 """
 get network cytoscape page
 """
+
+
 @csrf_exempt
 def network_info(request):
     return render(request, 'cytoscape.html')
@@ -108,17 +127,66 @@ def insert(request):
 
 
 # insert pic to mysql
+# def insert_file(request):
+#     folder = 'static/PlaqueMS_data/guhcl/core/ultrasound/boxplots/'
+#     filenames = os.listdir(folder)
+#     filepath_prefix = '../static/PlaqueMS_data/guhcl/core/ultrasound/boxplots/'
+#     for filename in filenames:
+#         id = str(uuid.uuid4())
+#         pic = models.pictures()
+#         pic.id = id
+#         pic.filename = filename
+#         pic.filepath = filepath_prefix + filename
+#         pic.pic_type = '00'
+#         pic_and_experiment = models.pic_and_experiment()
+#         second_id = str(uuid.uuid4())
+#         pic_and_experiment.id = second_id
+#         pic_and_experiment.pic_id = id
+#         pic_and_experiment.experiment_id = "1"
+#         # insert
+#         pic.save()
+#         pic_and_experiment.save()
+#     return HttpResponse('insert complete')
+
+
+# def insert_file(request):
+#     folder = 'static/PlaqueMS_data/guhcl/periphery/ultrasound/_bplots_crt/'
+#     filenames = os.listdir(folder)
+#     filepath_prefix = '../static/PlaqueMS_data/guhcl/periphery/ultrasound/_bplots_crt/'
+#     for filename in filenames:
+#         id = str(uuid.uuid4())
+#         pic = models.pictures()
+#         pic.id = id
+#         pic.filename = filename
+#         pic.filepath = filepath_prefix + filename
+#         pic.pic_type = '00'
+#         pic_and_experiment = models.pic_and_experiment()
+#         second_id = str(uuid.uuid4())
+#         pic_and_experiment.id = second_id
+#         pic_and_experiment.pic_id = id
+#         pic_and_experiment.experiment_id = "2"
+#         # insert
+#         pic.save()
+#         pic_and_experiment.save()
+#     return HttpResponse('insert complete')
+
 def insert_file(request):
-    folder = 'static/PlaqueMS_data/guhcl/core/ultrasound/boxplots/'
+    folder = 'static/PlaqueMS_data/nacl/periphery/ultrasound/_bplots_crt/'
     filenames = os.listdir(folder)
-    filepath_prefix = '../static/PlaqueMS_data/guhcl/core/ultrasound/boxplots/'
+    filepath_prefix = '../static/PlaqueMS_data/nacl/periphery/ultrasound/_bplots_crt/'
     for filename in filenames:
-        id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+        id = str(uuid.uuid4())
         pic = models.pictures()
         pic.id = id
         pic.filename = filename
         pic.filepath = filepath_prefix + filename
         pic.pic_type = '00'
+        pic_and_experiment = models.pic_and_experiment()
+        second_id = str(uuid.uuid4())
+        pic_and_experiment.id = second_id
+        pic_and_experiment.pic_id = id
+        pic_and_experiment.experiment_id = "3"
         # insert
         pic.save()
+        pic_and_experiment.save()
     return HttpResponse('insert complete')
