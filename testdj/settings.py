@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'revproxy',
     'django_select2',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

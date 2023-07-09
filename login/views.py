@@ -1,8 +1,10 @@
 import json
 
-from django.shortcuts import render, HttpResponse
+from django.forms import model_to_dict
+from django.shortcuts import render, HttpResponse, redirect
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from login import models, forms
 import urllib3
 import uuid
@@ -15,24 +17,36 @@ get proteins
 
 @csrf_exempt
 def proteins_info(request):
-    if request.method == 'GET':
-        proteins_list = models.Proteins.objects.all()
-        paginator = Paginator(proteins_list, 2)  # Show 25 contacts per page.
-
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-        return render(request, "general.html", {"page_obj": page_obj})
-    elif request.POST.get('search_protein'):
-        proteins_name = request.POST.get("protein_name")
-        uniprot_id = request.POST.get("uniprot_id")
-        proteins_list = models.Proteins.objects.all().filter(protein_name__icontains=proteins_name).filter(
-            uniprot_id__icontains=uniprot_id)
-
-        paginator = Paginator(proteins_list, 2)  # Show 25 contacts per page.
-
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-        return render(request, "general.html", {"page_obj": page_obj})
+    # get all the list
+    proteins_list = models.Proteins.objects.all()
+    # get keywords
+    protein_name = request.GET.get("protein_name", "")
+    uniprot_id = request.GET.get("uniprot_id", "")
+    if protein_name:
+        proteins_list = proteins_list.filter(protein_name__icontains=protein_name)
+    if uniprot_id:
+        proteins_list = proteins_list.filter(uniprot_id__icontains=uniprot_id)
+    # begin pagination
+    paginator = Paginator(proteins_list, 2)
+    page_num = request.GET.get('page_num', 1)
+    try:
+        result_page = paginator.page(page_num)  # result_page is a page object
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        result_page = paginator.page(paginator.num_pages)
+    page_range = paginator.page_range
+    page_last = paginator.num_pages
+    context = {
+        "result_page": result_page,
+        "page_range": page_range,
+        "page_last": page_last,
+        "protein_name": protein_name,
+        "uniprot_id": uniprot_id,
+    }
+    return render(request, "general.html", context)
 
 
 """
@@ -190,3 +204,77 @@ def insert_file(request):
         pic.save()
         pic_and_experiment.save()
     return HttpResponse('insert complete')
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializer import GoodsSerializer
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
+
+
+class GoodsPageApi(APIView):
+    """
+    分页
+    """
+
+    def get(self, request, pindex):
+        # 1、获取商品信息
+        goods_list = models.Proteins.objects.all()
+        # 2、实例化分页器
+        paginat = Paginator(goods_list, 2)
+        # 3、 获取分页
+        paged = paginat.page(pindex)
+        try:  # 判断是否有下一页
+            paged.has_next()
+            down_page = paged.next_page_number()  # 获取一下页的页码
+        except EmptyPage:  # 如果下一页为空的话，
+            down_page = paged.paginator.num_pages  # 获取最后一页的页码
+            paged = paginat.page(down_page)
+
+        try:
+            paged.has_previous()  # 判断是否有上一页
+            up_page = paged.previous_page_number()  # 获取上页的页码
+        except InvalidPage:  # 如果没有上一页
+            up_page = 1  # 返回第一页
+            paged = paginat.page(up_page)
+
+        # 4、 做序列化
+        page_serializer = GoodsSerializer(paged, many=True)
+
+        # 5、 返回数据
+        return Response({
+            'code': 200,
+            'data': page_serializer.data,
+            'page_list': [i for i in paginat.page_range],
+            'num_pages': paginat.num_pages,
+            'has_previous': paged.has_previous(),  # 判断是否有上一页
+            'has_next': paged.has_next(),  # 判断是否有下一页
+            'previous_page_number': up_page,  # 返回上一页的页码
+            'next_page_number': down_page,  # 返回下一页的页码
+            'page_number': paged.number  # 返回当前页页码
+        })
+
+
+def get_proteins(request):
+    # return render(request, 'fenye.html')
+    page_num = "1"
+    if (request.GET.get("page_num")):
+        page_num = request.GET.get("page_num")
+    http = urllib3.PoolManager()
+    # 发起一个GET请求并且获取请求的响应结果
+    r = http.request('GET', 'http://127.0.0.1:8000/goods_page/' + page_num)
+    jsonData = r.json()
+    # print(json.dumps(jsonData))
+    data = jsonData["data"]
+    num_pages = jsonData["num_pages"]
+    has_previous = jsonData["has_previous"]
+    has_next = jsonData["has_next"]
+    page_number = jsonData["page_number"]
+    return render(request, "fenye.html",
+                  {'data': data, 'num_pages': int(num_pages),
+                   'has_previous': bool(has_previous),
+                   'has_next': bool(has_next), 'page_number': int(page_number)})
+
+
+# views.py
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger

@@ -39,13 +39,14 @@ from login import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.proteins_info, name="proteins"),
-    # re_path(r'^index/$'),
+    # path('goods_page/<pindex>', views.GoodsPageApi.as_view()),
+    # path('fenye/', views.get_proteins),
     path('insertFileName/', views.insert_file),
     path('plot/', views.pic_info, name="plot"),
     path('cy/', views.network_info),
     path('tryc/', views.try_curl, name="cy"),
     path('tryc2/', views.try_curl2),
-    re_path(r'^doc(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # re_path(r'^doc(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    # path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
