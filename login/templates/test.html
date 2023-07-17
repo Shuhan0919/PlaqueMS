@@ -30,6 +30,13 @@
       opacity: 0.7;
     }
 
+
+
+
+
+
+
+
     </style>
     <script>
 	//增加监听事件，函数内初始化
@@ -126,14 +133,128 @@
         }
       });
                       function alertNode(){
-    cy.on('tap', 'node', function(e){
+    cy.on('onetap', 'node', function(e){
       var node = e.target;
-      console.log(node)
       alert( 'tapped ' + node.data("name"));
     });
   }
   alertNode();
+  function double_click_node(){
+    cy.on('dbltap', 'node', function(e){
+      var node = e.target;
+      console.log(node.data)
     });
+  }
+  double_click_node();
+    });
+
+    function do_cluster(){
+    var one = {}
+    var two = {}
+    $.ajax({
+            type: "GET",
+            url: "http://localhost:1234/v1/networks/14635",
+            success: function (res) {
+    window.cy = cytoscape({
+      container: document.getElementById('cy'),
+      style: [ {
+    "selector" : "node",
+    "css" : {
+      "color" : "rgb(51,51,51)",
+      "border-color" : "rgb(0,0,0)",
+      "height" : 5.0,
+      "font-size" : 1,
+      "text-opacity" : 1.0,
+      "border-opacity" : 1.0,
+      "background-color" : "rgb(204,204,255)",
+      "font-family" : "SansSerif",
+      "font-weight" : "normal",
+      "text-valign" : "center",
+      "text-halign" : "center",
+      "border-width" : 0.0,
+      "width" : 5.0,
+      "background-opacity" : 1.0,
+      "shape" : "ellipse",
+      "content" : "data(name)"
+    }
+  }, {
+    "selector" : "node[logFC > 1.55675113]",
+    "css" : {
+      "background-color" : "rgb(178,24,43)"
+    }
+  }, {
+    "selector" : "node[logFC = 1.55675113]",
+    "css" : {
+      "background-color" : "rgb(214,96,77)"
+    }
+  }, {
+    "selector" : "node[logFC > 0][logFC < 1.55675113]",
+    "css" : {
+      "background-color" : "mapData(logFC,0,1.55675113,rgb(247,247,247),rgb(214,96,77))"
+    }
+  }, {
+    "selector" : "node[logFC > -1.55675113][logFC < 0]",
+    "css" : {
+      "background-color" : "mapData(logFC,-1.55675113,0,rgb(67,147,195),rgb(247,247,247))"
+    }
+  }, {
+    "selector" : "node[logFC = -1.55675113]",
+    "css" : {
+      "background-color" : "rgb(67,147,195)"
+    }
+  }, {
+    "selector" : "node[logFC < -1.55675113]",
+    "css" : {
+      "background-color" : "rgb(33,102,172)"
+    }
+  }, {
+    "selector" : "node:selected",
+    "css" : {
+      "background-color" : "rgb(255,255,0)"
+    }
+  }, {
+    "selector" : "edge",
+    "css" : {
+      "text-opacity" : 1.0,
+      "color" : "rgb(0,0,0)",
+      "width" : 0.1,
+      "source-arrow-color" : "rgb(0,0,0)",
+      "opacity" : 1.0,
+      "content" : "",
+      "font-size" : 10,
+      "line-color" : "rgb(76,76,76)",
+      "target-arrow-color" : "rgb(0,0,0)",
+      "font-family" : "SansSerif",
+      "font-weight" : "normal",
+      "target-arrow-shape" : "none",
+      "line-style" : "solid",
+      "source-arrow-shape" : "none"
+    }
+  }, {
+    "selector" : "edge:selected",
+    "css" : {
+      "line-color" : "rgb(255,0,0)"
+    }
+  } ],
+      elements: {
+                nodes: res.elements.nodes,
+                edges: res.elements.edges,
+              },
+      layout: { name: 'random' }
+    });
+            }
+        })
+
+
+    }
+
+
+
+
+
+
+
+
 
     </script>
 </head>
@@ -173,7 +294,7 @@
             </select>
             <button onclick="clusters">show original network</button>
             <br><br>
-            <button onclick="clusters">do clustering</button>
+            <button onclick="do_cluster()">do clustering</button>
             <br><br>
             <select id="select_log" class="form-control form-control-placeholder">
                 <option value="-1" disabled selected hidden>please select</option>
