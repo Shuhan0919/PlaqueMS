@@ -22,10 +22,26 @@ def proteins_info(request):
     # get keywords
     protein_name = request.GET.get("protein_name", "")
     uniprot_id = request.GET.get("uniprot_id", "")
-    if protein_name:
-        proteins_list = proteins_list.filter(protein_name__icontains=protein_name)
-    if uniprot_id:
-        proteins_list = proteins_list.filter(uniprot_id__icontains=uniprot_id)
+    if protein_name and uniprot_id:
+        name_search_list = protein_name.split(",")
+        name_search = ",".join('"' + item + '"' for item in name_search_list)
+        id_search_list = uniprot_id.split(",")
+        id_search = ",".join('"' + item + '"' for item in id_search_list)
+        sql = 'SELECT p.id, p.uniprot_id, p.protein_name, p.gene_symbol FROM Proteins p ' \
+              'WHERE p.protein_name in (' + name_search + ')' + 'OR p.uniprot_id IN (' + id_search + ')'
+        proteins_list = models.Proteins.objects.raw(sql)
+    elif uniprot_id and protein_name == '':
+        id_search_list = uniprot_id.split(",")
+        id_search = ",".join('"' + item + '"' for item in id_search_list)
+        sql = 'SELECT p.id, p.uniprot_id, p.protein_name, p.gene_symbol FROM Proteins p ' \
+              'WHERE p.uniprot_id IN (' + id_search + ')'
+        proteins_list = models.Proteins.objects.raw(sql)
+    elif uniprot_id == '' and protein_name:
+        name_search_list = protein_name.split(",")
+        name_search = ",".join('"' + item + '"' for item in name_search_list)
+        sql = 'SELECT p.id, p.uniprot_id, p.protein_name, p.gene_symbol FROM Proteins p ' \
+              'WHERE p.protein_name in (' + name_search + ')'
+        proteins_list = models.Proteins.objects.raw(sql)
     # begin pagination
     paginator = Paginator(proteins_list, 2)
     page_num = request.GET.get('page_num', 1)
@@ -67,7 +83,9 @@ def pic_info(request):
         sample_type = request.POST.get("sample_type")
         pic_type = request.POST.get("pic_type")
         extraction_type = request.POST.get("extraction_type")
-        sql = "select p.id, p.filename, p.filepath, p.pic_type from pictures as p left join pic_and_experiment c on p.id = c.pic_id LEFT JOIN experiments e on c.experiment_id = e.id where e.sample_type = '" + sample_type + "' and p.pic_type = '" + pic_type + "' and e.extraction_type = '" + extraction_type + "'"
+        sql = "select p.id, p.filename, p.filepath, p.pic_type from pictures as p left join pic_and_experiment c on " \
+              "p.id = c.pic_id LEFT JOIN experiments e on c.experiment_id = e.id where e.sample_type = '" + \
+              sample_type + "' and p.pic_type = '" + pic_type + "' and e.extraction_type = '" + extraction_type + "'"
         pic_list = models.pictures.objects.raw(sql)
         paginator = Paginator(pic_list, 5)
         page_number = request.GET.get("page")
@@ -77,6 +95,42 @@ def pic_info(request):
     #     print("=======================")
     #     print("bad")
     #     return render(request, "plot.html")
+
+
+@csrf_exempt
+def get_pic_info(request):
+    # get all the list
+    pictures_list = models.pictures.objects.all()
+    # get keywords
+    pic_type = request.GET.get("pic_type", "")
+    extraction_type = request.GET.get("extraction_type", "")
+    # pic_type = request.GET.get("pic_type", "")
+    sample_type = request.GET.get("sample_type", "")
+    if pic_type:
+        pictures_list = pictures_list.filter(pic_type__exact=pic_type)
+    if extraction_type:
+        pictures_list = pictures_list.filter(uniprot_id__icontains=uniprot_id)
+    # begin pagination
+    paginator = Paginator(proteins_list, 2)
+    page_num = request.GET.get('page_num', 1)
+    try:
+        result_page = paginator.page(page_num)  # result_page is a page object
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result_page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        result_page = paginator.page(paginator.num_pages)
+    page_range = paginator.page_range
+    page_last = paginator.num_pages
+    context = {
+        "result_page": result_page,
+        "page_range": page_range,
+        "page_last": page_last,
+        "protein_name": protein_name,
+        "uniprot_id": uniprot_id,
+    }
+    return render(request, "general.html", context)
 
 
 """
@@ -98,7 +152,7 @@ def try_curl(request):
     http = urllib3.PoolManager()
     # 发起一个GET请求并且获取请求的响应结果
     # r = http.request('GET', 'http://localhost:1234/v1/networks.json')
-    r = http.request('GET', 'http://localhost:1234/v1/networks/151')
+    r = http.request('GET', 'http://localhost:1234/v1/networks/13656')
     # 输出响应的数据
     # print(r.json()[0])
     # jsonData = r.json()[0]
@@ -278,3 +332,38 @@ def get_proteins(request):
 
 # views.py
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+# import os
+# import sys
+# import pandas as pd
+# import py4cytoscape as p4c
+# # todo import network
+# def insert_file(request):
+#     apms_data = pd.read_csv()
+#     edge_data = {'source': apms_data["Bait"],
+#                  'target': apms_data["Prey"],
+#                  'AP-MS Score': apms_data["AP-MS Score"]
+#                  }
+#     edges = pd.DataFrame(data=edge_data, columns=['source', 'target', 'AP-MS Score'])
+#     edges.head()
+#     p4c.create_network_from_data_frames(edges=edges, title='apms network', collection="apms collection")
+#     # folder = 'static/PlaqueMS_data/nacl/periphery/ultrasound/_bplots_crt/'
+#     # filenames = os.listdir(folder)
+#     # filepath_prefix = '../static/PlaqueMS_data/nacl/periphery/ultrasound/_bplots_crt/'
+#     # for filename in filenames:
+#     #     id = str(uuid.uuid4())
+#     #     pic = models.pictures()
+#     #     pic.id = id
+#     #     pic.filename = filename
+#     #     pic.filepath = filepath_prefix + filename
+#     #     pic.pic_type = '00'
+#     #     pic_and_experiment = models.pic_and_experiment()
+#     #     second_id = str(uuid.uuid4())
+#     #     pic_and_experiment.id = second_id
+#     #     pic_and_experiment.pic_id = id
+#     #     pic_and_experiment.experiment_id = "3"
+#     #     # insert
+#     #     pic.save()
+#     #     pic_and_experiment.save()
+#     return HttpResponse('insert complete')

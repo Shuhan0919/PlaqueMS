@@ -40,28 +40,27 @@
                 <div class="panel-heading">
                     Search By:
                 </div>
-                <br>
                 <form action="{% url 'proteins' %}" method="get">
                     <a>Protein names:</a><br>
                     <input placeholder="Protein names" name="protein_name" id="protein_name" type="text"
-                           value="{{protein_name}}">
+                           value="{{protein_name}}" data-role="tagsinput">
                     <br><br>
                     <a>Protein uniprot id:</a><br>
                     <input placeholder="Protein uniprot id" name="uniprot_id" id="uniprot_id" type="text"
-                           value="{{uniprot_id}}">
-                    <br>
-                    <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput">
-                    <br><br><br>
+                           value="{{uniprot_id}}" data-role="tagsinput">
+                    <br><br>
+                    <p>tips: click return button after type a id or name can search for a list of ids or names</p>
+<!--                    <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput">-->
+                    <br><br>
                     <button type="submit">search</button>
                 </form>
                 <button onclick="reset()">reset</button>
-
             </section>
         </div>
         <div class="col-sm-9">
             <section class="panel">
                 <div class="panel-heading">
-                    List
+                    Result List
                 </div>
                 <table class="table table-striped table-advance table-hover" id="proteinTable">
                     <tbody>
@@ -117,27 +116,9 @@
 <!-- container section end -->
 <script type="text/javascript">
     function reset() {
-            document.getElementById('protein_name').value = ''
-            document.getElementById('uniprot_id').value = ''
+        document.getElementById('protein_name').value = ''
+        document.getElementById('uniprot_id').value = ''
     }
-<!--    function next_page(){-->
-<!--        {% if sets.has_next %}-->
-<!--        page={{ sets.next_page_number }};-->
-<!--    {% endif %}-->
-<!--$.ajax({-->
-<!--    type: "GET",-->
-<!--    url: '',-->
-<!--    data: {-->
-<!--        page: page-->
-<!--    },-->
-<!--    success: function (data) {-->
-<!--        $('#proteinTable').html(data)-->
-<!--        },-->
-<!--    });-->
-<!--    }-->
-
-
-
 </script>
 </body>
 </html>

@@ -11,7 +11,7 @@
     <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
 </head>
-<body>
+<body οnlοad="init()">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
@@ -43,78 +43,96 @@
         <div class="panel-heading">
             List
         </div>
-        <table class="table table-striped table-advance table-hover" id="proteinTable">
-            <tbody>
+        <table class="table table-striped table-advance table-hover">
+            <thead>
             <tr>
                 <th>uniprot_id</th>
                 <th>protein_name</th>
                 <th>gene_symbol</th>
-                <th>option</th>
             </tr>
-            {% for protein in data %}
-            <tr>
-                <td>{{ protein.uniprot_id }}</td>
-                <td>{{ protein.protein_name }}</td>
-                <td>{{ protein.gene_symbol }}</td>
-                <td>
-                    <button data-original-title="Popovers in left"
-                            data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-                            data-placement="left"
-                            data-trigger="hover" class="btn btn-info popovers">Show
-                    </button>
-                </td>
-            </tr>
-            {% endfor %}
+            </thead>
+            <tbody id="protein_table">
             </tbody>
         </table>
         <div class="pagination">
     <span class="step-links">
         {% if has_previous %}
-            <a id="first_page" onclick="first_page()">&laquo; first</a>
+            <a id="first_page" onclick="first_page()">first</a>
             <a id="previous_page" onclick="previous_page()">previous</a>
         {% endif %}
-
         <span class="current" id="page_number">
-<!--            Page {{ page_number }} of {{ num_pages }}.-->
-            Page {{ page_number }}
+            Page {{ page_number }} of {{ num_pages }}
         </span>
-
         {% if has_next %}
             <a id="next_page" onclick="next_page()">next</a>
-            <a id="last_page" onclick="last_page()">last &raquo;</a>
+            <a id="last_page" onclick="last_page()">last</a>
         {% endif %}
     </span>
         </div>
     </section>
 </div>
-
-</body>
-</html>
 <script type="text/javascript">
+    var num_pages = 1
+    var has_previous = false
+    var has_next = false
+    var page_number = 1
+    function getPageData(data) {
+<!--        console.log("==================")-->
+<!--        console.log($("#protein_table").val())-->
+        var str = ""
+        for (var i = 0; i < data.length; i++) {
+            str = "<tr><td>" + data[i].uniprot_id + "</td><td>" + data[i].protein_name + "</td></tr>" + data[i].gene_symbol + "</td></tr>"
+            $("#protein_table").append(str)
+        }
+    }
+    window.onload=function init(){
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/goods_page/1",
+            data: {
+                page_number: page_number
+            },
+            success: function (res) {
+                data = res.data
+                getPageData(data)
+                num_pages = res.num_pages
+                has_previous = res.has_previous
+                has_next = res.has_next
+                page_number = res.page_number
+                $("#page_number").val(page_number)
+            }
+        })
+    };
     function next_page(){
         {% if has_next %}
-            page_num = {{ page_number }} + 1;
+            page_number = page_number + 1;
         {% endif %}
         var protein_name = document.getElementById('protein_name').value
         var uniprot_id = document.getElementById('uniprot_id').value
+        document.getElementById('protein_table').value = ""
+<!--        $("#protein_table").val("")-->
         $.ajax({
             type: "GET",
-            url: 'http://127.0.0.1:8000/goods_page/' + page_num,
+            url: 'http://127.0.0.1:8000/goods_page/' + page_number,
             data: {
-                page_num: page_num,
+                page_number: page_number,
                 protein_name: protein_name,
                 uniprot_id: uniprot_id,
             },
             success: function (res) {
                 data = res.data
+                console.log(data)
                 num_pages = res.num_pages
                 has_previous = res.has_previous
                 has_next = res.has_next
                 page_number = res.page_number
-                $("#proteinTable").html(data)
-                $("#page_number").html(page_number)
-                console.log('successfully get result')
+                getPageData(data)
+                $("#page_number").val(page_number)
             }
         })
-    };
+    }
+
+
 </script>
+</body>
+</html>

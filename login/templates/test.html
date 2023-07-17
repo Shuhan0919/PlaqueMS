@@ -9,24 +9,25 @@
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <!-- 导入cytoscape.js库-->
     <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    <script src="http://cdn.bootcss.com/typeahead.js/0.11.1/typeahead.bundle.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
     <style>
     body {
       font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
     }
     #cy {
       position: absolute;
-      left: 0;
+      left: 30%;
       top: 0;
       bottom: 0;
       right: 0;
       z-index: 1;
       opacity: 0.7;
-    }
-    h1 {
-      color:#3366FF;
-      opacity: 0.5;
-      font-size: 28px;
-      font-weight: bold;
     }
 
     </style>
@@ -35,14 +36,14 @@
     document.addEventListener('DOMContentLoaded', function () {
             var nodes = {{ nodes | safe }};
             var edges = {{ edges | safe }};
-      var cy = window.cy = cytoscape({
+      window.cy = cytoscape({
         container: document.getElementById('cy'),	//container的值为DOM容器，表示显示图表的位置
           "style" : [ {
     "selector" : "node",
     "css" : {
       "color" : "rgb(51,51,51)",
       "border-color" : "rgb(0,0,0)",
-      "height" : 5.0,
+      "height" : 20.0,
       "font-size" : 1,
       "text-opacity" : 1.0,
       "border-opacity" : 1.0,
@@ -52,7 +53,7 @@
       "text-valign" : "center",
       "text-halign" : "center",
       "border-width" : 0.0,
-      "width" : 5.0,
+      "width" : 20.0,
       "background-opacity" : 1.0,
       "shape" : "ellipse",
       "content" : "data(name)"
@@ -124,6 +125,14 @@
           name: 'cose',	//一种默认布局方式
         }
       });
+                      function alertNode(){
+    cy.on('tap', 'node', function(e){
+      var node = e.target;
+      console.log(node)
+      alert( 'tapped ' + node.data("name"));
+    });
+  }
+  alertNode();
     });
 
     </script>
@@ -136,7 +145,7 @@
 <section id="container" class="">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'proteins' %}">proteins</a>
+            <a class="nav-link active" id="proteins_tab" aria-current="page" href="{% url 'proteins' %}">proteins</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'plot' %}">visualization</a>
@@ -146,6 +155,37 @@
         </li>
     </ul>
 </section>
+<div class="col-sm-3">
+    <section class="panel">
+        <div class="nav search-row" id="top_menu">
+            <a>dataset:</a>
+            <select id="select_dataset" class="form-control form-control-placeholder">
+                <option value="-1" disabled selected hidden>please select</option>
+                <option value="00">KCL-VIENNA Plaque Cohort</option>
+                <option value="01">Carotid Plaques Vienna Cohort</option>
+                <option value="02">Coronary Arteries University of Virginia Cohort</option>
+            </select>
+            <a>network:</a>
+            <select id="select_network" class="form-control form-control-placeholder">
+                <option value="-1" disabled selected hidden>please select</option>
+                <option value="00">gu core filtered directed network</option>
+                <option value="01">gu periphery filtered directed network</option>
+            </select>
+            <button onclick="clusters">show original network</button>
+            <br><br>
+            <button onclick="clusters">do clustering</button>
+            <br><br>
+            <select id="select_log" class="form-control form-control-placeholder">
+                <option value="-1" disabled selected hidden>please select</option>
+                <option value="00">calcified vs non calcified</option>
+                <option value="01">echogenic vs echolucent</option>
+                <option value="02">female vs male</option>
+            </select>
+            <br><br>
+            <button onclick="clusters">apply log2FC color</button>
+        </div>
+    </section>
+</div>
 <div id="cy"></div>
 </body>
 
