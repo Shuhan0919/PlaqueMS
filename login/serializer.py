@@ -5,5 +5,5 @@ class GoodsSerializer(serializers.ModelSerializer):
     protein Serializer
     """
     class Meta:
-        model = models.Proteins
+        model = models.proteins
         fields = '__all__'

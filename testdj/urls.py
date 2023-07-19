@@ -35,18 +35,27 @@ schema_view = get_schema_view(
 from django.contrib import admin
 from django.urls import path, include, re_path
 from login import views
+from login import cyviews
+from login import insertViews
+from login import queryviews
+from login import pathTree
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.proteins_info, name="proteins"),
     path('goods_page/<pindex>', views.GoodsPageApi.as_view()),
     path('fenye/', views.get_proteins),
-    path('insertFileName/', views.insert_file),
+    path('insertOne/', insertViews.insert_one),
+    path('insertTwo/', insertViews.insert_two),
     path('plot/', views.pic_info, name="plot"),
     path('cy/', views.network_info),
     path('tryc/', views.try_curl, name="cy"),
     path('tryc2/', views.try_curl2),
-    path('networks/', views.try_curl),
+    # path('networks/', views.try_curl),
+    path('networks/', cyviews.create_network),
+    path('format/', views.format_file_name),
+    path('get_dir/', views.get_path),
+    path('tree/', pathTree.path_to_dict),
     # re_path(r'^doc(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     # path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

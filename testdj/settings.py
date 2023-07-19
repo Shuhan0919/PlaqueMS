@@ -138,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'packet_database',
+        'NAME': 'PlaqueMS',
         'USER': 'root',
         'PASSWORD': 'root123!',
         'HOST': '127.0.0.1',
