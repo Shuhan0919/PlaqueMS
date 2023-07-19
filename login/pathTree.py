@@ -1,5 +1,8 @@
 # path tree
 from django.http import HttpResponse
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
 
 from login import models
 import json
@@ -7,19 +10,19 @@ import json
 
 class Node(dict):
     # initialize a node
-    def __init__(self, id, name, children=None):
+    def __init__(self, id, text, nodes=None):
         super().__init__()
         self.__dict__ = self
         self.id = id
-        self.name = name
-        self.children = list(children) if children is not None else []
+        self.text = text
+        self.nodes = list(nodes) if nodes is not None else []
 
     def add_child(self, *child):
-        self.children += child
+        self.nodes += child
 
     def show(self, layer):
-        print("--" * layer + self.name)
-        for c in self.children:
+        print("--" * layer + self.text)
+        for c in self.nodes:
             c.show(layer + 1)
 
 
@@ -34,9 +37,6 @@ def initialize_tree():
         second_list = models.experiments_types.objects.raw(sql)
         add_child_node(second_list, first_node)
     return rootNode
-    #
-    # root.show(0)
-    # return HttpResponse("initialize_tree")
 
 
 # recursively add node
@@ -53,26 +53,10 @@ def add_child_node(list, node):
             add_child_node(second_list, second_node)
 
 
-import os
-import json
-
-
-# def path_to_dict():
-#     item = os.path.basename(path)
-#     d = {'name': item, 'children': [path_to_dict(os.path.join(path, x)) for x in os.listdir(path) if
-#                                     os.path.isdir(os.path.join(path, x)) and os.path.basename(os.path.join(path, x))[
-#                                         0] not in ["~", "."]]}
-#     return d
-# node2 = json.dumps(path_to_dict(path))
-# f2 = open('json_tree.json', 'w')
-# f2.write(node2)
-# f2.close()
-
-
 @staticmethod
 def from_dict(dict_):
     """ Recursively (re)construct TreeNode-based tree from dictionary. """
-    node = Node(dict_['id'], dict_['name'], dict_['children'])
+    node = Node(dict_['id'], dict_['text'], dict_['nodes'])
     #        node.children = [TreeNode.from_dict(child) for child in node.children]
     node.children = list(map(Node.from_dict, node.children))
     return node
@@ -81,8 +65,13 @@ def from_dict(dict_):
 def path_to_dict(request):
     tree = initialize_tree()
     json_str = json.dumps(tree, indent=2)
-    print(json_str)
     f2 = open('json_tree.json', 'w')
     f2.write(json_str)
     f2.close()
     return HttpResponse("success")
+
+@api_view(['GET'])
+def get_json_file(request):
+    with open("json_tree.json", "r", encoding="utf-8") as f:
+        content = json.load(f)
+    return Response({'data': content})

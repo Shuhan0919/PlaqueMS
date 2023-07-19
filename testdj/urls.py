@@ -37,7 +37,6 @@ from django.urls import path, include, re_path
 from login import views
 from login import cyviews
 from login import insertViews
-from login import queryviews
 from login import pathTree
 
 urlpatterns = [
@@ -56,6 +55,7 @@ urlpatterns = [
     path('format/', views.format_file_name),
     path('get_dir/', views.get_path),
     path('tree/', pathTree.path_to_dict),
+    path('get_json/', pathTree.get_json_file),
     # re_path(r'^doc(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     # path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

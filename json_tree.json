@@ -1,102 +1,102 @@
 {
   "id": "root",
-  "name": "root",
-  "children": [
+  "text": "root",
+  "nodes": [
     {
       "id": "02d22025-9c6f-46a2-8927-d813353c21d6",
-      "name": "Carotid_Plaques_Athero_Express",
-      "children": []
+      "text": "Carotid_Plaques_Athero_Express",
+      "nodes": []
     },
     {
       "id": "0581de77-69e1-4965-a9a2-0981e8435d66",
-      "name": "Carotid_Plaques_Vienna_Cohort",
-      "children": [
+      "text": "Carotid_Plaques_Vienna_Cohort",
+      "nodes": [
         {
           "id": "308adb55-02df-4f97-a599-41c929a8845a",
-          "name": "GUHCL TMT",
-          "children": [
+          "text": "GUHCL TMT",
+          "nodes": [
             {
               "id": "b85e6db6-274c-4099-a670-d8d8cf18a7df",
-              "name": "core vs periphery",
-              "children": []
+              "text": "core vs periphery",
+              "nodes": []
             },
             {
               "id": "de49c56b-1e6a-4d67-8830-0d1f5d0f4558",
-              "name": "core",
-              "children": [
+              "text": "core",
+              "nodes": [
                 {
                   "id": "4ba9933f-4db7-438f-a628-88cd1dc00341",
-                  "name": "female vs male",
-                  "children": []
+                  "text": "female vs male",
+                  "nodes": []
                 },
                 {
                   "id": "8cb37c3a-abf5-44a5-90b3-3a6ccd6f14e2",
-                  "name": "echogenic vs echolucent",
-                  "children": []
+                  "text": "echogenic vs echolucent",
+                  "nodes": []
                 },
                 {
                   "id": "a3d3c12c-fb28-4560-8bd1-f886dcb64b18",
-                  "name": "calcified vs non calcified",
-                  "children": []
+                  "text": "calcified vs non calcified",
+                  "nodes": []
                 },
                 {
                   "id": "ab5e8b5b-38b8-444f-a9df-32824b01eb27",
-                  "name": "symptomatic vs non symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non symptomatic",
+                  "nodes": []
                 },
                 {
                   "id": "bcbe289b-46ba-4d33-bfe5-f1eba2b34852",
-                  "name": "fibroatheroma vs calcified",
-                  "children": []
+                  "text": "fibroatheroma vs calcified",
+                  "nodes": []
                 },
                 {
                   "id": "e8ea41ce-85db-4e15-b18d-0f8f3535d236",
-                  "name": "yes or no for all medications",
-                  "children": [
+                  "text": "yes or no for all medications",
+                  "nodes": [
                     {
                       "id": "067b35ff-8c7e-43e2-8c7a-a314b6681f4b",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     },
                     {
                       "id": "0a492edd-59a2-484c-9373-295a3c0fe919",
-                      "name": "antiplatelet vs no antiplatelet",
-                      "children": []
+                      "text": "antiplatelet vs no antiplatelet",
+                      "nodes": []
                     },
                     {
                       "id": "0ce99547-950e-4c67-985d-c7efea8af615",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     },
                     {
                       "id": "3a18b796-4a7c-444d-a10c-7617cb89d51b",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     },
                     {
                       "id": "4e655126-bf4f-42b3-a7a0-a565e9dc4d08",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     },
                     {
                       "id": "6aa8ae9f-7504-498b-b19d-212cc4d7e150",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     },
                     {
                       "id": "7c70f284-8603-4272-9683-5ff2ca784698",
-                      "name": "BBlock vs no bblock",
-                      "children": []
+                      "text": "BBlock vs no bblock",
+                      "nodes": []
                     },
                     {
                       "id": "915c3eb1-e269-48a5-af02-c6408df4de75",
-                      "name": "statins vs no statins",
-                      "children": []
+                      "text": "statins vs no statins",
+                      "nodes": []
                     },
                     {
                       "id": "c10d8f76-460d-4a6f-8c0d-edcb3f4f1498",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     }
                   ]
                 }
@@ -104,76 +104,76 @@
             },
             {
               "id": "e1f26fcd-41b0-4311-b514-75b2e040de4c",
-              "name": "periphery",
-              "children": [
+              "text": "periphery",
+              "nodes": [
                 {
                   "id": "3a4850f5-392b-4adb-b9b0-32e52234ffed",
-                  "name": "female vs male",
-                  "children": []
+                  "text": "female vs male",
+                  "nodes": []
                 },
                 {
                   "id": "5366c48b-dcd1-48ee-94a6-e656feb48b47",
-                  "name": "calcified vs non calcified",
-                  "children": []
+                  "text": "calcified vs non calcified",
+                  "nodes": []
                 },
                 {
                   "id": "68e338ee-e9e1-408b-8409-c3e1b122614c",
-                  "name": "fibroatheroma vs calcified",
-                  "children": []
+                  "text": "fibroatheroma vs calcified",
+                  "nodes": []
                 },
                 {
                   "id": "6a996422-336f-4fca-aa18-8f5786d09231",
-                  "name": "echogenic vs echolucent",
-                  "children": []
+                  "text": "echogenic vs echolucent",
+                  "nodes": []
                 },
                 {
                   "id": "ab2394f2-5eea-4a4b-9785-78e5076f7caf",
-                  "name": "symptomatic vs non symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non symptomatic",
+                  "nodes": []
                 },
                 {
                   "id": "ddba4b84-5b34-4cc7-84be-293421a59e48",
-                  "name": "yes or no for all medication",
-                  "children": [
+                  "text": "yes or no for all medication",
+                  "nodes": [
                     {
                       "id": "13b05e4a-4931-479a-b76f-64d9c389e78f",
-                      "name": "antiplatelet vs no antiplatelet",
-                      "children": []
+                      "text": "antiplatelet vs no antiplatelet",
+                      "nodes": []
                     },
                     {
                       "id": "2b41c25b-8346-4c9a-81e0-e4a68098403d",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     },
                     {
                       "id": "2de84acb-41b2-4169-ad35-d2343355ba0e",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     },
                     {
                       "id": "4d4d18ba-a04b-4aea-adbd-137c16dabc4d",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     },
                     {
                       "id": "97b7a4f0-587f-4c7f-ba6c-053896079317",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     },
                     {
                       "id": "bf3aa258-4c77-4f3c-b4f6-0f520370c017",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     },
                     {
                       "id": "f776771d-7571-47e6-a462-218414ba1955",
-                      "name": "BBlock vs no Bblock",
-                      "children": []
+                      "text": "BBlock vs no Bblock",
+                      "nodes": []
                     },
                     {
                       "id": "f8a94610-33d5-46f5-be31-2bd9d9b98827",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     }
                   ]
                 }
@@ -183,169 +183,169 @@
         },
         {
           "id": "3a7ea0dc-2637-4b8c-a090-3e00cc5489a6",
-          "name": "SDS TMT",
-          "children": [
+          "text": "SDS TMT",
+          "nodes": [
             {
               "id": "387adcae-b69e-4f07-91d7-4a0c7decffe1",
-              "name": "periphery",
-              "children": [
+              "text": "periphery",
+              "nodes": [
                 {
                   "id": "0b79205e-2d40-4c95-930b-1cfc40847774",
-                  "name": "calcified vs non calcified",
-                  "children": []
+                  "text": "calcified vs non calcified",
+                  "nodes": []
                 },
                 {
                   "id": "2748c670-b625-4a8c-92c5-37849b13a3c6",
-                  "name": "symptomatic vs non symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non symptomatic",
+                  "nodes": []
                 },
                 {
                   "id": "30715fd3-470a-4f3f-8af6-685cc8d219f3",
-                  "name": "yes or no for all medication",
-                  "children": [
+                  "text": "yes or no for all medication",
+                  "nodes": [
                     {
                       "id": "7f219858-e29b-454f-939e-c6d4256d579c",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     },
                     {
                       "id": "847c51d1-27ff-4ccd-8c7e-429f092de638",
-                      "name": "statins vs no statins",
-                      "children": []
+                      "text": "statins vs no statins",
+                      "nodes": []
                     },
                     {
                       "id": "8545b3bb-20db-4aea-8f21-ec215b2b5370",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     },
                     {
                       "id": "91bed0b0-9c43-4c02-af44-fc70f0ed3a9e",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     },
                     {
                       "id": "c91eee8d-eabb-454d-a7b3-f213d99e917e",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     },
                     {
                       "id": "d74f3215-39c5-4524-a716-b4a8dd08e446",
-                      "name": "antiplatelet vs no antiplatelet",
-                      "children": []
+                      "text": "antiplatelet vs no antiplatelet",
+                      "nodes": []
                     },
                     {
                       "id": "df9a58d9-0e6d-463a-8038-834979194a28",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     },
                     {
                       "id": "f1478d49-ab49-4a0c-955b-87414261f420",
-                      "name": "Bblock vs no Bblock",
-                      "children": []
+                      "text": "Bblock vs no Bblock",
+                      "nodes": []
                     },
                     {
                       "id": "f1e808ea-0c12-41e4-a6fb-e900dfa9b1ba",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     }
                   ]
                 },
                 {
                   "id": "b25a3f3a-b232-447e-a3c1-57500ecc99bf",
-                  "name": "fibroatheroma vs calcified",
-                  "children": []
+                  "text": "fibroatheroma vs calcified",
+                  "nodes": []
                 },
                 {
                   "id": "bbd3d841-c286-41bb-8668-6ac2e7fad5d2",
-                  "name": "male vs female",
-                  "children": []
+                  "text": "male vs female",
+                  "nodes": []
                 }
               ]
             },
             {
               "id": "6ac53a5c-57dc-46aa-82dd-02627a334b06",
-              "name": "core vs periphery",
-              "children": []
+              "text": "core vs periphery",
+              "nodes": []
             },
             {
               "id": "b8fae23b-f75b-487c-9e84-84cccfa3dcae",
-              "name": "core",
-              "children": [
+              "text": "core",
+              "nodes": [
                 {
                   "id": "53a72401-c0bf-4598-bbbe-3a9cfb393041",
-                  "name": "symptomatic vs non symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non symptomatic",
+                  "nodes": []
                 },
                 {
                   "id": "59480d37-7019-4b1a-9787-df12f8c44bb7",
-                  "name": "yes or no for all medication",
-                  "children": [
+                  "text": "yes or no for all medication",
+                  "nodes": [
                     {
                       "id": "068777ce-81aa-41c1-9676-76cde6a1e215",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     },
                     {
                       "id": "0e09dcec-aaff-4ea0-a3e6-688d0b9760cb",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     },
                     {
                       "id": "32a737af-c1b6-4113-ba59-4ad9927d6aa1",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     },
                     {
                       "id": "54103e43-4300-4a77-b794-7a333d904a3c",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     },
                     {
                       "id": "919e0461-5e8c-4289-903c-0669cfe66255",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     },
                     {
                       "id": "a9cc3627-b642-4187-811f-9914300bf7de",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     },
                     {
                       "id": "ae5ae402-9301-492b-aa92-4f4c8be75780",
-                      "name": "Bblock vs no Bblock",
-                      "children": []
+                      "text": "Bblock vs no Bblock",
+                      "nodes": []
                     },
                     {
                       "id": "dd875c6b-530d-4bbf-a793-0c97e2e84703",
-                      "name": "antiplatelet vs no antiplatelet",
-                      "children": []
+                      "text": "antiplatelet vs no antiplatelet",
+                      "nodes": []
                     },
                     {
                       "id": "f313165b-cefd-4b66-9055-90e90b168de1",
-                      "name": "statins vs no statins",
-                      "children": []
+                      "text": "statins vs no statins",
+                      "nodes": []
                     }
                   ]
                 },
                 {
                   "id": "943eefc4-eb01-4886-b87b-8f9a4c705a28",
-                  "name": "calcified vs non calcified",
-                  "children": []
+                  "text": "calcified vs non calcified",
+                  "nodes": []
                 },
                 {
                   "id": "97135c19-4959-4919-bd9a-3ebda570faac",
-                  "name": "echogenic vs echolucent",
-                  "children": []
+                  "text": "echogenic vs echolucent",
+                  "nodes": []
                 },
                 {
                   "id": "bfd3c4f6-8445-4819-a0be-1a6bb84f7925",
-                  "name": "fibroatheroma vs calcified",
-                  "children": []
+                  "text": "fibroatheroma vs calcified",
+                  "nodes": []
                 },
                 {
                   "id": "e40ec7c3-ad5c-4fc6-9a4c-e3c6d1e31a48",
-                  "name": "female vs male",
-                  "children": []
+                  "text": "female vs male",
+                  "nodes": []
                 }
               ]
             }
@@ -353,169 +353,169 @@
         },
         {
           "id": "5604da06-d833-41a9-9613-995b5c49a9e2",
-          "name": "Olink Explore",
-          "children": [
+          "text": "Olink Explore",
+          "nodes": [
             {
               "id": "22c798cb-9cf7-49d3-8d4f-fc2c082ca1b5",
-              "name": "Periphery",
-              "children": [
+              "text": "Periphery",
+              "nodes": [
                 {
                   "id": "165b2615-29e3-4d96-b050-1420ce188bf6",
-                  "name": "echogenic vs echolucent",
-                  "children": []
+                  "text": "echogenic vs echolucent",
+                  "nodes": []
                 },
                 {
                   "id": "4801ae13-c20c-4a2f-815e-8aeea82cee1f",
-                  "name": "female vs male",
-                  "children": []
+                  "text": "female vs male",
+                  "nodes": []
                 },
                 {
                   "id": "51780b40-ce9d-42b1-9d54-42fe0cc648b9",
-                  "name": "calcified vs fibroatheroma",
-                  "children": []
+                  "text": "calcified vs fibroatheroma",
+                  "nodes": []
                 },
                 {
                   "id": "68df06b1-bc45-4832-a512-615d1e125360",
-                  "name": "yes or no for all medication",
-                  "children": [
+                  "text": "yes or no for all medication",
+                  "nodes": [
                     {
                       "id": "412ef99d-9f1a-486b-9a58-b900a6de6213",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     },
                     {
                       "id": "426479a0-a2c6-407a-8c08-0dd908facb84",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     },
                     {
                       "id": "5e7f8de4-3771-4a7e-bb1d-a4050634beed",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     },
                     {
                       "id": "7be482c8-5dbb-4d33-a38a-333129601230",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     },
                     {
                       "id": "97891af6-a261-414b-b3de-caef33e92a9e",
-                      "name": "antiplatelet vs no antiplatelet",
-                      "children": []
+                      "text": "antiplatelet vs no antiplatelet",
+                      "nodes": []
                     },
                     {
                       "id": "a4db5b60-1da4-4d02-b89c-ae30a2d8363b",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     },
                     {
                       "id": "b4c4715a-e887-48a6-98ba-3785c8cd58ed",
-                      "name": "statins vs no statins",
-                      "children": []
+                      "text": "statins vs no statins",
+                      "nodes": []
                     },
                     {
                       "id": "d4c09262-21ac-4624-a96b-ffa4768822f4",
-                      "name": "BBlock vs no BBlock",
-                      "children": []
+                      "text": "BBlock vs no BBlock",
+                      "nodes": []
                     },
                     {
                       "id": "f784db0b-2f08-4c64-9888-e58671d1fb7d",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     }
                   ]
                 },
                 {
                   "id": "d873c89a-7dd3-4cdd-9cdc-c239d068e2ff",
-                  "name": "calcified vs non-calcified",
-                  "children": []
+                  "text": "calcified vs non-calcified",
+                  "nodes": []
                 },
                 {
                   "id": "d8a5f9ce-ddad-4a17-a9b8-68c5015be837",
-                  "name": "symptomatic vs non-symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non-symptomatic",
+                  "nodes": []
                 }
               ]
             },
             {
               "id": "510f0a71-6e78-4ec7-9882-5a2b16d690be",
-              "name": "core vs periphery",
-              "children": []
+              "text": "core vs periphery",
+              "nodes": []
             },
             {
               "id": "a7b97597-7c3e-4af3-a474-75cb6948070b",
-              "name": "core",
-              "children": [
+              "text": "core",
+              "nodes": [
                 {
                   "id": "12f22238-fe88-4024-9040-4c8e670b9f2b",
-                  "name": "calcified vs non calcified",
-                  "children": []
+                  "text": "calcified vs non calcified",
+                  "nodes": []
                 },
                 {
                   "id": "21516c8b-f6db-4f95-901e-45dca884dbfe",
-                  "name": "calcified vs fibroatheroma",
-                  "children": []
+                  "text": "calcified vs fibroatheroma",
+                  "nodes": []
                 },
                 {
                   "id": "9582e0c1-5d33-4078-8e33-2e73c8813d02",
-                  "name": "female vs male",
-                  "children": []
+                  "text": "female vs male",
+                  "nodes": []
                 },
                 {
                   "id": "99640377-fc7e-4497-a9ce-ad943a6ad2bd",
-                  "name": "yes or no for all medication",
-                  "children": [
+                  "text": "yes or no for all medication",
+                  "nodes": [
                     {
                       "id": "088ab5d5-c8dd-4ad4-ad78-be5089b8070f",
-                      "name": "antiplatelet vs no antiplatelet",
-                      "children": []
+                      "text": "antiplatelet vs no antiplatelet",
+                      "nodes": []
                     },
                     {
                       "id": "216ad6c9-d2b6-494e-87b8-b6567ee9d959",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     },
                     {
                       "id": "26f15a08-35af-4222-b8ac-feb73d387e93",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     },
                     {
                       "id": "65d078ae-78e8-45e1-b837-ae8d48da7060",
-                      "name": "BBlock vs no BBlock",
-                      "children": []
+                      "text": "BBlock vs no BBlock",
+                      "nodes": []
                     },
                     {
                       "id": "6bb988b1-30e3-4c3c-ab78-cdcdac5205b7",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     },
                     {
                       "id": "72d5cd83-57ae-4acc-8fd1-4076a686b6e5",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     },
                     {
                       "id": "8d68a934-e433-4b5a-b019-78a2c328f323",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     },
                     {
                       "id": "c4150af3-8bb0-4a87-aaea-c952c64254e7",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     }
                   ]
                 },
                 {
                   "id": "b6007e11-0a87-47dd-9926-f49d92a4d9a4",
-                  "name": "echolucent vs echogenic",
-                  "children": []
+                  "text": "echolucent vs echogenic",
+                  "nodes": []
                 },
                 {
                   "id": "c56188b7-fc74-4cfb-a779-9cfdb8f7281d",
-                  "name": "symptomatic vs non-symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non-symptomatic",
+                  "nodes": []
                 }
               ]
             }
@@ -523,174 +523,174 @@
         },
         {
           "id": "60ec80b9-775f-474d-b51d-0bdca6be741c",
-          "name": "NACL TMT",
-          "children": [
+          "text": "NACL TMT",
+          "nodes": [
             {
               "id": "7870bece-da68-445d-a18f-e7d0a93224f7",
-              "name": "core",
-              "children": [
+              "text": "core",
+              "nodes": [
                 {
                   "id": "047501c9-407b-4a26-b3bf-be7ab739dc97",
-                  "name": "female vs male",
-                  "children": []
+                  "text": "female vs male",
+                  "nodes": []
                 },
                 {
                   "id": "70ca35a5-3de9-4cc1-b1de-496188858445",
-                  "name": "yes or no for all medication",
-                  "children": [
+                  "text": "yes or no for all medication",
+                  "nodes": [
                     {
                       "id": "05af1242-250f-45ed-8974-851d11c7b7e9",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     },
                     {
                       "id": "20767d65-c037-4c0b-a566-dd037466f818",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     },
                     {
                       "id": "6fd7488d-c376-4737-95c4-69ecfeedb0d5",
-                      "name": "Bblock vs no Bblock",
-                      "children": []
+                      "text": "Bblock vs no Bblock",
+                      "nodes": []
                     },
                     {
                       "id": "902c257e-07c7-4e42-afc7-e508a2c1f96e",
-                      "name": "statins vs no statins",
-                      "children": []
+                      "text": "statins vs no statins",
+                      "nodes": []
                     },
                     {
                       "id": "990ac438-7628-4017-8f71-47107927e703",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     },
                     {
                       "id": "a81ea4f8-fd32-40f1-b5f0-232860060a05",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     },
                     {
                       "id": "bdf6e425-b0a9-49bf-a499-045071e2d50d",
-                      "name": "antiplatelet vs no",
-                      "children": []
+                      "text": "antiplatelet vs no",
+                      "nodes": []
                     },
                     {
                       "id": "e033cd68-44be-4cf0-bb83-e33d94486cce",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     },
                     {
                       "id": "f58f6e36-f5dc-4f0a-b79f-125da0910da9",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     }
                   ]
                 },
                 {
                   "id": "763cc98a-f165-4e89-bc04-75fb6dcd8a65",
-                  "name": "fibroatheroma vs calcified",
-                  "children": []
+                  "text": "fibroatheroma vs calcified",
+                  "nodes": []
                 },
                 {
                   "id": "86dd1c18-ab77-4add-a00e-9daa3ea76ccf",
-                  "name": "symptomatic vs non symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non symptomatic",
+                  "nodes": []
                 },
                 {
                   "id": "9ee9374c-1e19-4ba3-9642-e4c960b19069",
-                  "name": "calcified vs non calcified",
-                  "children": []
+                  "text": "calcified vs non calcified",
+                  "nodes": []
                 },
                 {
                   "id": "a75feff6-e427-47ed-9977-2345f732701b",
-                  "name": "echogenic vs echolucent",
-                  "children": []
+                  "text": "echogenic vs echolucent",
+                  "nodes": []
                 }
               ]
             },
             {
               "id": "84049d4d-c6c0-4bcf-a6c1-959d98bf228a",
-              "name": "core vs periphery",
-              "children": []
+              "text": "core vs periphery",
+              "nodes": []
             },
             {
               "id": "e09e18e1-f41d-4fa8-9898-3368dd349a0d",
-              "name": "periphery",
-              "children": [
+              "text": "periphery",
+              "nodes": [
                 {
                   "id": "240965da-36ad-4d84-ab02-167c3de435ff",
-                  "name": "echogenic vs echolucent",
-                  "children": []
+                  "text": "echogenic vs echolucent",
+                  "nodes": []
                 },
                 {
                   "id": "3b463c2d-e399-473e-9572-df79089d9ea4",
-                  "name": "fibroatheroma vs calcified",
-                  "children": []
+                  "text": "fibroatheroma vs calcified",
+                  "nodes": []
                 },
                 {
                   "id": "4962f8fd-ac5c-4981-80ad-2dda41867915",
-                  "name": "calcified vs non calcified",
-                  "children": []
+                  "text": "calcified vs non calcified",
+                  "nodes": []
                 },
                 {
                   "id": "4a483b20-19bb-4f71-a761-e8bafe5e5a61",
-                  "name": "yes or no for all medications",
-                  "children": [
+                  "text": "yes or no for all medications",
+                  "nodes": [
                     {
                       "id": "0ea3577e-d9ba-492f-b435-9c1d9aecdf36",
-                      "name": "antiplatelet vs no",
-                      "children": []
+                      "text": "antiplatelet vs no",
+                      "nodes": []
                     },
                     {
                       "id": "3e54edeb-e12c-42e1-90c5-5ab71f6e1750",
-                      "name": "aspirin vs no aspirin",
-                      "children": []
+                      "text": "aspirin vs no aspirin",
+                      "nodes": []
                     },
                     {
                       "id": "468f4190-5970-4b03-90fb-1a5d5cadff39",
-                      "name": "clopidogrel vs no clopidogrel",
-                      "children": []
+                      "text": "clopidogrel vs no clopidogrel",
+                      "nodes": []
                     },
                     {
                       "id": "56ffae38-44ed-4371-9168-8462f5a304d2",
-                      "name": "ARB vs no ARB",
-                      "children": []
+                      "text": "ARB vs no ARB",
+                      "nodes": []
                     },
                     {
                       "id": "841c30d6-675a-4177-8b77-12bcb026014f",
-                      "name": "diuretics vs no diuretics",
-                      "children": []
+                      "text": "diuretics vs no diuretics",
+                      "nodes": []
                     },
                     {
                       "id": "872dd721-4237-4336-a373-f1d4a33b7e9b",
-                      "name": "ACE vs no ACE",
-                      "children": []
+                      "text": "ACE vs no ACE",
+                      "nodes": []
                     },
                     {
                       "id": "b8c9ed51-93f0-4c1d-b7f2-15ee6132c875",
-                      "name": "statins vs no statins",
-                      "children": []
+                      "text": "statins vs no statins",
+                      "nodes": []
                     },
                     {
                       "id": "d230b0f2-0bf2-4d13-bf9d-3504d9dc8c5a",
-                      "name": "Bblock vs no Bblock",
-                      "children": []
+                      "text": "Bblock vs no Bblock",
+                      "nodes": []
                     },
                     {
                       "id": "f030af49-c911-437d-8422-e8eecec774fc",
-                      "name": "ticagrelor vs no ticagrelor",
-                      "children": []
+                      "text": "ticagrelor vs no ticagrelor",
+                      "nodes": []
                     }
                   ]
                 },
                 {
                   "id": "53683032-b7a4-4558-9360-c84075275bc8",
-                  "name": "male vs female",
-                  "children": []
+                  "text": "male vs female",
+                  "nodes": []
                 },
                 {
                   "id": "b978c1f5-0eff-48b1-b5c4-28fc8c4f743f",
-                  "name": "symptomatic vs non symptomatic",
-                  "children": []
+                  "text": "symptomatic vs non symptomatic",
+                  "nodes": []
                 }
               ]
             }
@@ -700,8 +700,8 @@
     },
     {
       "id": "12026bfa-44c5-4150-83f7-70b3ca158ebc",
-      "name": "Coronary_Arteries_University_of_Virginia_Cohort",
-      "children": []
+      "text": "Coronary_Arteries_University_of_Virginia_Cohort",
+      "nodes": []
     }
   ]
 }
