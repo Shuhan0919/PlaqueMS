@@ -75,3 +75,5 @@ def get_json_file(request):
     with open("json_tree.json", "r", encoding="utf-8") as f:
         content = json.load(f)
     return Response({'data': content})
+
+

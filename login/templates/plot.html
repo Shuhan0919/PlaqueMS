@@ -25,7 +25,7 @@
 <section id="container" class="">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'proteins' %}">proteins</a>
+            <a class="nav-link" href="{% url 'proteins' %}">proteins</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'plot' %}">visualization</a>
@@ -102,12 +102,24 @@
             success: function (res) {
                 // console.log(res.data.nodes)
                 tree = res.data.nodes
-                $('#tree').treeview({data: tree});
+                $('#tree').treeview({
+                    data: tree,
+                    highlightSelected: true,
+                    multiSelect: false,
+                });
             }
         })
     };
+    $('#tree').treeview('getSelected', nodeId);
 
 </script>
 <style>
+    .treeview .list-group-item.node-checked {
+        color: red;
+    }
+
+    .treeview .list-group-item.node-selected {
+        color: red;
+    }
 
 </style>
