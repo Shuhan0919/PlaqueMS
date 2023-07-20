@@ -37,7 +37,7 @@ class datasets(models.Model):
 
 # todo
 class networks(models.Model):
-    id = models.CharField('id', primary_key=True, max_length=50)
+    network_id = models.CharField('id', primary_key=True, max_length=50)
     filename = models.CharField('filename', max_length=100, default="")
     filepath = models.CharField('filepath', max_length=250, default="")
     description = models.CharField('description', max_length=100, null=True)

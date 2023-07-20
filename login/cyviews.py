@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view, renderer_classes
 import requests
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+from login import models
 
 """
 curl get one large network
@@ -50,6 +51,10 @@ def try_curl2(request):
 @api_view(['GET', 'POST'])
 def create_network(request):
     network_id = request.GET.get("network_id", "")
+
+    network = models.networks.objects.get(network_id=network_id)
+    print(network)
+
     gu_core_data = pd.read_table("/Users/shuhanliu/Downloads/individual_project/PlaqueMS_data/PlaqueMS_data/Networks"
                                  "/gu_core_filtered_directed_network.txt")
     edge_data = {'source': gu_core_data["Regulator"],
@@ -81,7 +86,7 @@ def create_network(request):
     r_style = http_style.request('GET', 'http://localhost:1234/v1/styles/default.json')
     json_style = r_style.json()
     style = json_style[0]["style"]
-    return Response({'nodes': nodes, 'edges': edges, 'style' : style})
+    return Response({'nodes': nodes, 'edges': edges, 'style': style})
 
 
 @api_view(['GET'])
@@ -137,6 +142,11 @@ def file_info(request):
 
 @api_view(['GET'])
 def do_coloring(request):
+    # statistics_id = request.GET.get("statistics_id", "")
+    # file = models.statistics.objects.all().get(id__exact=statistics_id)
+    #
+    # print(file)
+
     gu_core_CalcifiedVSNon_calcified_data = pd.read_table(
         "/Users/shuhanliu/Downloads/individual_project/PlaqueMS_data/PlaqueMS_data/Statistics/diff_exp_resultsCalcifiedVSNon-calcified_gu_core.txt",
         index_col=0)
@@ -202,7 +212,6 @@ def do_coloring(request):
     style = json_style[0]["style"]
 
     return Response({'nodes': nodes, 'edges': edges, 'style': style})
-
 
 # @api_view(['GET'])
 # def get_default_style(request):
