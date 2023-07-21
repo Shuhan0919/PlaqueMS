@@ -42,19 +42,18 @@
                 </div>
                 <form action="{% url 'proteins' %}" method="get">
                     <a>Protein names:</a><br>
-                    <input placeholder="Protein names" name="protein_name" id="protein_name" type="text"
-                           value="{{protein_name}}" data-role="tagsinput">
+                    <input placeholder="Gene names" name="gene_name" id="gene_name" type="text"
+                           value="{{gene_name}}" data-role="tagsinput">
                     <br><br>
                     <a>Protein uniprot id:</a><br>
-                    <input placeholder="Protein uniprot id" name="uniprot_id" id="uniprot_id" type="text"
-                           value="{{uniprot_id}}" data-role="tagsinput">
+                    <input placeholder="UniProtKB ID" name="uniprotkb_id" id="uniprotkb_id" type="text"
+                           value="{{uniprotkb_id}}" data-role="tagsinput">
                     <br><br>
                     <p>tips: click return button after type a id or name can search for a list of ids or names</p>
-<!--                    <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput">-->
                     <br><br>
                     <button type="submit">search</button>
                 </form>
-<!--                <button onclick="reset()">reset</button>-->
+                <!--                <button onclick="reset()">reset</button>-->
             </section>
         </div>
         <div class="col-sm-9">
@@ -65,47 +64,33 @@
                 <table class="table table-striped table-advance table-hover" id="proteinTable">
                     <tbody>
                     <tr>
-                        <th>uniprot_id</th>
-                        <th>protein_name</th>
-                        <th>gene_symbol</th>
-                        <th>option</th>
+                        <th>Uniprot Accession ID</th>
+                        <th>UniProtKB ID</th>
+                        <th>Gene Name</th>
                     </tr>
-                    {% for protein in result_page %}
+                    {% for protein in result %}
                     <tr>
-                        <td>{{ protein.uniprot_id }}</td>
-                        <td>{{ protein.protein_name }}</td>
-                        <td>{{ protein.gene_symbol }}</td>
-                        <td>
-                            <button data-original-title="Popovers in left"
-                                    data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-                                    data-placement="left"
-                                    data-trigger="hover" class="btn btn-info popovers">Show
-                            </button>
-                        </td>
+                        <td>{{ protein.uniprot_accession_id }}</td>
+                        <td>{{ protein.uniprotkb_id }}</td>
+                        <td>{{ protein.gene_name }}</td>
+                        <!--                        <td>-->
+                        <!--                            <button data-original-title="Popovers in left"-->
+                        <!--                                    data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."-->
+                        <!--                                    data-placement="left"-->
+                        <!--                                    data-trigger="hover" class="btn btn-info popovers">Show-->
+                        <!--                            </button>-->
+                        <!--                        </td>-->
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
                 <ul class="pagination">
-                    <!-- previous -->
-                    {% if result_page.has_previous %}
-                    <a href="?protein_name={{protein_name}}&uniprot_id={{uniprot_id}}&page_num={{ result_page.previous_page_number }}">previous</a>
+                    {% if has_previous == True %}
+                    <a href="?gene_name={{gene_name}}&uniprotkb_id={{uniprotkb_id}}&page_number={{previous_page }}">previous</a>
                     {% endif %}
-                    <!-- by page number -->
-                    <!--            {% for p in page_range %}-->
-                    <!--            {% if page_num == p %}-->
-                    <!--            <a href="?protein_name={{protein_name}}&uniprot_id={{uniprot_id}}&page_num={{p}}">{{p}}</a>-->
-                    <!--            {% else %}-->
-                    <!--            <a href="?protein_name={{protein_name}}&uniprot_id={{uniprot_id}}&page_num={{p}}">{{p}}</a>-->
-                    <!--            {% endif %}-->
-                    <!--            {% endfor %}-->
-                    <span class="current">
-                Page {{ result_page.number }} of {{ result_page.paginator.num_pages }}.
-            </span>
-
-                    <!-- next -->
-                    {% if result_page.has_next %}
-                    <a href="?protein_name={{protein_name}}&uniprot_id={{uniprot_id}}&page_num={{ result_page.next_page_number }}">next</a>
+                    <span class="current">Page {{ page }} of {{ total_count }}</span>.
+                    {% if has_next == True %}
+                    <a href="?gene_name={{gene_name}}&uniprotkb_id={{uniprotkb_id}}&page_number={{next_page}}">next</a>
                     {% endif %}
                 </ul>
             </section>
@@ -113,13 +98,6 @@
     </div>
 
 </section>
-<!-- container section end -->
-<script type="text/javascript">
-    // function reset() {
-    //     document.getElementById('protein_name').value = ''
-    //     document.getElementById('uniprot_id').value = ''
-    // }
-</script>
 </body>
 </html>
 

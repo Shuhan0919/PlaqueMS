@@ -7,23 +7,13 @@ from django.db import models
 # Create your models here.
 # proteins
 class proteins(models.Model):
-    id = models.CharField('id', primary_key=True, max_length=50)
-    uniprot_id = models.CharField('uniprot_id', max_length=64)
-    protein_name = models.CharField('protein_name', max_length=64)
-    gene_symbol = models.CharField('gene_symbol', max_length=64)
+    id = models.CharField('id', primary_key=True, max_length=50, default="")
+    uniprot_accession_id = models.CharField('uniprot_accession_id', max_length=50, default="")
+    uniprotkb_id = models.CharField('uniprotkb_id', max_length=64, default="")
+    gene_name = models.CharField('gene_name', max_length=64, default="")
 
     class Meta:
         db_table = 'proteins'
-
-
-# class pictures(models.Model):
-#     id = models.CharField('id', primary_key=True, max_length=50)
-#     filename = models.CharField('filename', max_length=100, default="")
-#     filepath = models.CharField('filepath', max_length=250, default="")
-#     pic_type = models.CharField('pic_type', max_length=5)
-#
-#     class Meta:
-#         db_table = 'pictures'
 
 class datasets(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50)
@@ -68,17 +58,6 @@ class experiments_types(models.Model):
 
     class Meta:
         db_table = 'experiments_types'
-
-
-# todo
-class protein_and_pic(models.Model):
-    id = models.CharField('id', primary_key=True, max_length=50)
-    uniprot_id = models.CharField('uniprot_id', max_length=50)
-    pic_id = models.CharField('pic_id', max_length=50)
-
-    class Meta:
-        db_table = 'protein_and_pic'
-
 
 # todo
 class doc_and_experiment(models.Model):

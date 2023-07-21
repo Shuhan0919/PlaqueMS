@@ -2,10 +2,13 @@ import json
 
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.decorators.csrf import csrf_exempt
-from login import models, forms
+from login import models
 import urllib3
 import uuid
 import os
+import pandas as pd
+import csv
+import numpy as np
 
 
 # import zipfile
@@ -197,3 +200,35 @@ def get_path(request):
         for dir in dirs:
             print(dir)
     return HttpResponse('dir complete')
+
+
+def insertProteinData(request):
+    df = pd.read_csv("static/HUMAN_9606_idmapping.dat", header=None, encoding='utf-8', delimiter="\t",
+                     quoting=csv.QUOTE_NONE)
+    df_uni = df.loc[df[1] == 'UniProtKB-ID']
+    df_uni.columns = ['Uniprot_Accession_ID', 'UniProtKB_ID_ID', 'UniProtKB_ID']
+    df_uni.set_index(df_uni['Uniprot_Accession_ID'], drop=True, append=False, inplace=False, verify_integrity=False)
+    # print(df_uni.head())
+    # print("===============")
+    df_name = df.loc[df[1] == 'Gene_Name']
+    df_name.columns = ['Uniprot_Accession_ID', 'Gene_Name_id', 'Gene_Name']
+    # print(df_name.head())
+    df_name.set_index(df_name['Uniprot_Accession_ID'], drop=True, append=False, inplace=False, verify_integrity=False)
+
+    result = pd.merge(df_uni, df_name, left_on='Uniprot_Accession_ID', right_on='Uniprot_Accession_ID')
+    result = result[["Uniprot_Accession_ID", "UniProtKB_ID", "Gene_Name"]]
+    result["UniProtKB_ID"] = result["UniProtKB_ID"].str[:-6]
+    # result.to_csv("a.csv")
+    array = np.array(result)
+    list = array.tolist()
+    protein_list = []
+    for item in list:
+        protein = models.proteins()
+        protein.id = str(uuid.uuid4())
+        protein.uniprot_accession_id = item[0]
+        protein.uniprotkb_id = item[1]
+        protein.gene_name = item[2]
+        protein_list.append(protein)
+
+    models.proteins.objects.bulk_create(protein_list)
+    return HttpResponse('insert proteins complete')
