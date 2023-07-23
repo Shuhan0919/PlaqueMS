@@ -6,7 +6,7 @@ from django.db import models
 
 # Create your models here.
 # proteins
-class proteins(models.Model):
+class Proteins(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50, default="")
     uniprot_accession_id = models.CharField('uniprot_accession_id', max_length=50, default="")
     uniprotkb_id = models.CharField('uniprotkb_id', max_length=64, default="")
@@ -15,7 +15,8 @@ class proteins(models.Model):
     class Meta:
         db_table = 'proteins'
 
-class datasets(models.Model):
+
+class Datasets(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50)
     name = models.CharField('name', max_length=100, default="")
     position = models.CharField('position', max_length=250, default="")
@@ -26,7 +27,7 @@ class datasets(models.Model):
 
 
 # todo
-class networks(models.Model):
+class Networks(models.Model):
     network_id = models.CharField('id', primary_key=True, max_length=50)
     filename = models.CharField('filename', max_length=100, default="")
     filepath = models.CharField('filepath', max_length=250, default="")
@@ -36,7 +37,7 @@ class networks(models.Model):
         db_table = 'networks'
 
 
-class statistics(models.Model):
+class Statistics(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50)
     filename = models.CharField('filename', max_length=100, default="")
     filepath = models.CharField('filepath', max_length=250, default="")
@@ -48,7 +49,7 @@ class statistics(models.Model):
 
 
 # todo
-class experiments_types(models.Model):
+class ExperimentsTypes(models.Model):
     experiment_id = models.CharField('id', primary_key=True, max_length=50)
     pathname = models.CharField('pathname', max_length=100)
     path_type = models.CharField('path_type', max_length=10)
@@ -59,8 +60,9 @@ class experiments_types(models.Model):
     class Meta:
         db_table = 'experiments_types'
 
+
 # todo
-class doc_and_experiment(models.Model):
+class DocAndExperiment(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50)
     experiment_id = models.CharField('experiment_id', max_length=50)
     doc_id = models.CharField('doc_id', max_length=50)
@@ -70,7 +72,7 @@ class doc_and_experiment(models.Model):
 
 
 # todo
-class network_and_experiment(models.Model):
+class NetworkAndExperiment(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50)
     experiment_id = models.CharField('experiment_id', max_length=50)
     network_id = models.CharField('network_id', max_length=50)

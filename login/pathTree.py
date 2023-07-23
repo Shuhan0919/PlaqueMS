@@ -1,10 +1,9 @@
 # path tree
 from django.http import HttpResponse
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.renderers import JSONRenderer
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from login import models
+from login.models import Datasets, ExperimentsTypes
 import json
 
 
@@ -28,13 +27,13 @@ class Node(dict):
 
 def initialize_tree():
     rootNode = Node("root", "root")
-    dataset_list = models.datasets.objects.all()
+    dataset_list = Datasets.objects.all()
     for dataset in dataset_list:
         first_node = Node(dataset.id, dataset.name)
         rootNode.add_child(first_node)
         # add second layer
         sql = "select experiment_id, pathname, path_type from experiments_types where parent_id='' and dataset_id = '" + dataset.id + "'"
-        second_list = models.experiments_types.objects.raw(sql)
+        second_list = ExperimentsTypes.objects.raw(sql)
         add_child_node(second_list, first_node)
     return rootNode
 
@@ -49,7 +48,7 @@ def add_child_node(list, node):
             second_node = Node(second.experiment_id, second.pathname)
             node.add_child(second_node)
             sql = "select experiment_id, pathname, path_type from experiments_types where parent_id='" + second_node.id + "'"
-            second_list = models.experiments_types.objects.raw(sql)
+            second_list = ExperimentsTypes.objects.raw(sql)
             add_child_node(second_list, second_node)
 
 
@@ -70,10 +69,9 @@ def path_to_dict(request):
     f2.close()
     return HttpResponse("success")
 
+
 @api_view(['GET'])
 def get_json_file(request):
     with open("json_tree.json", "r", encoding="utf-8") as f:
         content = json.load(f)
     return Response({'data': content})
-
-

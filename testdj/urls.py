@@ -33,31 +33,30 @@ schema_view = get_schema_view(
 )
 
 from django.contrib import admin
-from django.urls import path, include, re_path
-from login import views
-from login import cyviews
-from login import insertViews
-from login import pathTree
+from django.urls import path
+from login import protein_views, cyviews, plot_views, pathTree, insert_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.show_list, name="proteins"),
-    path('insertOne/', insertViews.insert_one),
-    path('insertTwo/', insertViews.insert_two),
-    path('plot/', views.pic_info, name="plot"),
 
-    path('format/', insertViews.format_file_name),
-    path('get_dir/', insertViews.get_path),
+    path('insert_proteins/', insert_views.insert_protein_data),
+    path('insert_plot/', insert_views.insert_statistics),
+    # path('insert_dataset/', insert_views.insert_dataset),
+    # path('insert_one/', insert_views.insert_one),
+    # path('insert_two/', insert_views.insert_two),
+    # path('insert_three/', insert_views.insert_three),
+    path('format/', insert_views.format_file_name),
+    path('get_dir/', insert_views.get_path),
+
     path('tree/', pathTree.path_to_dict),
     path('get_json/', pathTree.get_json_file),
 
+    path('index/', protein_views.get_protein_list, name="proteins"),
+
+    path('plot/', plot_views.get_pic_list, name="plot"),
+
     path('tryc/', cyviews.try_curl, name="cy"),
-    path('tryc2/', cyviews.try_curl2),
     path('networks/', cyviews.create_network),
     path('do_mcl/', cyviews.do_mcl),
     path('color/', cyviews.do_coloring),
-    path('insert_proteins/', insertViews.insertProteinData),
-    # re_path(r'^doc(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    # path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

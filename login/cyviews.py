@@ -11,39 +11,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from login import models
 
-"""
-curl get one large network
-"""
-
-
 def try_curl(request):
-    return render(request, "test.html")
-    # http = urllib3.PoolManager()
-    # 发起一个GET请求并且获取请求的响应结果
-    # r = http.request('GET', 'http://localhost:1234/v1/networks.json')
-    # r = http.request('GET', 'http://localhost:1234/v1/networks/155')
-    # 输出响应的数据
-    # print(r.json()[0])
-    # jsonData = r.json()[0]
-    # jsonData = r.json()
-    # nodes = jsonData["elements"]["nodes"]
-    # edges = jsonData["elements"]["edges"]
-    # return render(request, "test.html", {'nodes': json.dumps(nodes), 'edges': json.dumps(edges)})
-
-
-def try_curl2(request):
-    http = urllib3.PoolManager()
-    # 发起一个GET请求并且获取请求的响应结果
-    # r = http.request('GET', 'http://localhost:1234/v1/networks.json')
-    r = http.request('GET', 'http://localhost:1234/v1/networks/626661')
-    # 输出响应的数据
-    # print(r.json()[0])
-    # jsonData = r.json()[0]
-    jsonData = r.json()
-    nodes = jsonData["elements"]["nodes"]
-    edges = jsonData["elements"]["edges"]
-    return render(request, "test2.html", {'nodes': json.dumps(nodes), 'edges': json.dumps(edges)})
-
+    return render(request, "network.html")
 
 # todo import network
 # @api_view(['GET'])

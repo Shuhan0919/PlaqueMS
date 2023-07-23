@@ -75,7 +75,7 @@
         window.onload = function init() {
             $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1:8000/get_json/",
+                url: "/get_json",
                 success: function (res) {
                     tree = res.data.nodes
                     $('#tree').treeview({
@@ -197,7 +197,6 @@
     <section class="panel">
         <a>please select a network</a>
         <select id="network_id" class="form-control form-control-placeholder">
-<!--            <option value="-1" disabled selected hidden>please select</option>-->
             <option value="n1">gu_core_filtered_directed_network</option>
             <option value="n2">gu_periphery_filtered_directed_network</option>
             <option value="n3">nacl_core_filtered_directed_network</option>

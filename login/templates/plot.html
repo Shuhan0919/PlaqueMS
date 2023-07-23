@@ -40,7 +40,12 @@
                 <div class="panel-heading">
                     Search By:
                 </div>
-                <br>
+                <select id="pic_type" class="selectpicker" type="text">
+                    <option value="00">boxplot</option>
+                    <option value="01">volcano plot</option>
+                    <option value="02">heatmap</option>
+                </select>
+                <br><br>
                 <div id="tree"></div>
             </section>
         </div>
@@ -52,13 +57,11 @@
                 <table class="table table-striped table-advance table-hover">
                     <tbody>
                     <tr>
-                        <th>id</th>
                         <th>name</th>
                         <th>show</th>
                     </tr>
-                    {% for pic in page_obj %}
+                    {% for pic in result %}
                     <tr>
-                        <td>{{ pic.id }}</td>
                         <td>{{ pic.filename }}</td>
                         <td>
                             <div>
@@ -71,21 +74,15 @@
                     </tbody>
                 </table>
                 <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+                    <ul class="pagination">
+                        {% if has_previous == True %}
+                        <a href="?doc_type={{doc_type}}&experiment_id={{experiment_id}}&page_number={{previous_page }}">previous</a>
+                        {% endif %}
+                        <span class="current">Page {{ page }} of {{ total_count }}</span>.
+                        {% if has_next == True %}
+                        <a href="?doc_type={{doc_type}}&experiment_id={{experiment_id}}&page_number={{next_page}}">next</a>
+                        {% endif %}
+                    </ul>
                 </div>
             </section>
         </div>
@@ -94,23 +91,47 @@
 </body>
 </html>
 <script type="text/javascript">
+    var experiment_id = ''
     var tree = []
     window.onload = function init() {
+        var doc = getQueryString("doc_type")
+        console.log(doc)
+        $('.selectpicker').selectpicker('val', doc)
+
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:8000/get_json/",
+            url: "/get_json",
             success: function (res) {
-                // console.log(res.data.nodes)
                 tree = res.data.nodes
                 $('#tree').treeview({
                     data: tree,
                     highlightSelected: true,
                     multiSelect: false,
+                    onNodeSelected: function (event, data) {
+                        experiment_id = data.id
+                        pic_type = $('#pic_type').val()
+                        location.href = "?doc_type=" + pic_type + "&experiment_id=" + experiment_id
+                    }
                 });
             }
         })
     };
-    $('#tree').treeview('getSelected', nodeId);
+    $('#pic_type').change(
+        function () {
+            pic_type = $('#pic_type').val()
+            location.href = "?doc_type=" + pic_type + "&experiment_id=" + experiment_id
+        }
+    )
+
+    function getQueryString(name) {
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        let r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        ;
+        return null;
+    }
 
 </script>
 <style>
