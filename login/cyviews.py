@@ -1,5 +1,6 @@
 import json
 
+from django.http import Http404
 from django.shortcuts import render, HttpResponse
 import urllib3
 import pandas as pd
@@ -9,10 +10,12 @@ from rest_framework.decorators import api_view, renderer_classes
 import requests
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from login import models
+from login.models import Networks, Statistics
+
 
 def try_curl(request):
     return render(request, "network.html")
+
 
 # todo import network
 # @api_view(['GET'])
@@ -21,7 +24,7 @@ def try_curl(request):
 def create_network(request):
     network_id = request.GET.get("network_id", "")
 
-    network = models.networks.objects.get(network_id=network_id)
+    network = Networks.objects.get(network_id=network_id)
     print(network)
 
     gu_core_data = pd.read_table("/Users/shuhanliu/Downloads/individual_project/PlaqueMS_data/PlaqueMS_data/Networks"
@@ -111,28 +114,30 @@ def file_info(request):
 
 @api_view(['GET'])
 def do_coloring(request):
+    # todo 根据选择获取file的路径 还需要判断是否和以前的数据相关如果用的不是。。就不行 救命！！！！
     # statistics_id = request.GET.get("statistics_id", "")
     # file = models.statistics.objects.all().get(id__exact=statistics_id)
     #
     # print(file)
 
-    gu_core_CalcifiedVSNon_calcified_data = pd.read_table(
-        "/Users/shuhanliu/Downloads/individual_project/PlaqueMS_data/PlaqueMS_data/Statistics/diff_exp_resultsCalcifiedVSNon-calcified_gu_core.txt",
-        index_col=0)
-    df_dict = {'logFC': gu_core_CalcifiedVSNon_calcified_data["logFC"],
-               'CI.L': gu_core_CalcifiedVSNon_calcified_data["CI.L"],
-               'CI.R': gu_core_CalcifiedVSNon_calcified_data["CI.R"],
-               'AveExpr': gu_core_CalcifiedVSNon_calcified_data["AveExpr"],
-               't': gu_core_CalcifiedVSNon_calcified_data["t"],
-               'P.Value': gu_core_CalcifiedVSNon_calcified_data["P.Value"],
-               'adj.P.Val': gu_core_CalcifiedVSNon_calcified_data["adj.P.Val"],
-               'B': gu_core_CalcifiedVSNon_calcified_data["B"]
-               }
-    df = pd.DataFrame(data=df_dict, columns=['logFC', 'CI.L', 'CI.R', 'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B'])
-    p4c.load_table_data(df)
+    # gu_core_CalcifiedVSNon_calcified_data = pd.read_table(
+    #     "/Users/shuhanliu/Downloads/individual_project/PlaqueMS_data/PlaqueMS_data/Statistics/diff_exp_resultsCalcifiedVSNon-calcified_gu_core.txt",
+    #     index_col=0)
+    # df_dict = {'logFC': gu_core_CalcifiedVSNon_calcified_data["logFC"],
+    #            'CI.L': gu_core_CalcifiedVSNon_calcified_data["CI.L"],
+    #            'CI.R': gu_core_CalcifiedVSNon_calcified_data["CI.R"],
+    #            'AveExpr': gu_core_CalcifiedVSNon_calcified_data["AveExpr"],
+    #            't': gu_core_CalcifiedVSNon_calcified_data["t"],
+    #            'P.Value': gu_core_CalcifiedVSNon_calcified_data["P.Value"],
+    #            'adj.P.Val': gu_core_CalcifiedVSNon_calcified_data["adj.P.Val"],
+    #            'B': gu_core_CalcifiedVSNon_calcified_data["B"]
+    #            }
+    # df = pd.DataFrame(data=df_dict, columns=['logFC', 'CI.L', 'CI.R', 'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B'])
+    # p4c.load_table_data(df)
 
-    min_value = df['logFC'].min()
-    max_value = df['logFC'].max()
+    # todo min max绝对值中取最大，然后分别定下来左右两侧
+    # min_value = df['logFC'].min()
+    # max_value = df['logFC'].max()
 
     headers = {
         'accept': 'application/json',
@@ -182,6 +187,7 @@ def do_coloring(request):
 
     return Response({'nodes': nodes, 'edges': edges, 'style': style})
 
+
 # @api_view(['GET'])
 # def get_default_style(request):
 #     http = urllib3.PoolManager()
@@ -189,3 +195,15 @@ def do_coloring(request):
 #     jsonData = r.json()
 #     style = jsonData["defaults"]
 #     return Response({'style': style})
+
+
+def download1(request):
+    file_path = r"static/example.svg"
+    try:
+        r = HttpResponse(open(file_path, "rb"))
+        print(r)
+        r["content_type"] = "application/octet-stream"
+        r["Content-Disposition"] = "attachment;filename=pic.svg"
+        return r
+    except Exception:
+        raise Http404("Download error")

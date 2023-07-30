@@ -1,7 +1,6 @@
 from django.shortcuts import HttpResponse
 from login.models import Proteins, Datasets, Statistics, ExperimentsTypes, DocAndExperiment
 import os
-from django.shortcuts import render
 import pandas as pd
 import csv
 import numpy as np
@@ -30,7 +29,7 @@ def insert_protein_data(request):
     protein_list = []
     for item in list:
         protein = Proteins()
-        protein.id = str(uuid.uuid4())
+        protein.protein_id = str(uuid.uuid4())
         protein.uniprot_accession_id = item[0]
         protein.uniprotkb_id = item[1]
         protein.gene_name = item[2]
@@ -52,7 +51,7 @@ def insert_dataset(request):
         if filename != ".DS_Store":
             id = str(uuid.uuid4())
             dataset = Datasets()
-            dataset.id = id
+            dataset.dataset_id = id
             dataset.name = filename.replace("_", " ")
             dataset.position = ''
             dataset.description = ''
@@ -218,7 +217,7 @@ def insert_bplot(folder, experiment_id):
             for filename in filenames:
                 id = str(uuid.uuid4())
                 doc = Statistics()
-                doc.id = id
+                doc.doc_id = id
                 doc.filename = filename
                 doc.filepath = filepath_prefix + filename
                 doc.doc_type = "00"
@@ -240,7 +239,7 @@ def insert_statistics(folder, experiment_id):
         if filename.__contains__("heatmap"):
             id = str(uuid.uuid4())
             doc = Statistics()
-            doc.id = id
+            doc.doc_id = id
             doc.filename = filename
             doc.filepath = filepath_prefix + filename
             doc.doc_type = "02"
@@ -254,7 +253,7 @@ def insert_statistics(folder, experiment_id):
         elif filename.__contains__("volcano"):
             id = str(uuid.uuid4())
             doc = Statistics()
-            doc.id = id
+            doc.doc_id = id
             doc.filename = filename
             doc.filepath = filepath_prefix + filename
             doc.doc_type = "01"
@@ -272,7 +271,7 @@ def insert_statistics(folder, experiment_id):
         elif filename.__contains__("diff_exp"):
             id = str(uuid.uuid4())
             doc = Statistics()
-            doc.id = id
+            doc.doc_id = id
             doc.filename = filename
             doc.filepath = filepath_prefix + filename
             doc.doc_type = "03"

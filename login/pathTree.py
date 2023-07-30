@@ -29,10 +29,10 @@ def initialize_tree():
     rootNode = Node("root", "root")
     dataset_list = Datasets.objects.all()
     for dataset in dataset_list:
-        first_node = Node(dataset.id, dataset.name)
+        first_node = Node(dataset.dataset_id, dataset.name)
         rootNode.add_child(first_node)
         # add second layer
-        sql = "select experiment_id, pathname, path_type from experiments_types where parent_id='' and dataset_id = '" + dataset.id + "'"
+        sql = "select experiment_id, pathname, path_type from experiments_types where parent_id='' and dataset_id = '" + dataset.dataset_id + "'"
         second_list = ExperimentsTypes.objects.raw(sql)
         add_child_node(second_list, first_node)
     return rootNode

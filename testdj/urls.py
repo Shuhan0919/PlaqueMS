@@ -39,8 +39,8 @@ from login import protein_views, cyviews, plot_views, pathTree, insert_views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('insert_proteins/', insert_views.insert_protein_data),
-    path('insert_plot/', insert_views.insert_statistics),
+    # path('insert_proteins/', insert_views.insert_protein_data),
+    # path('insert_plot/', insert_views.insert_statistics), # todo暂时好像没用上
     # path('insert_dataset/', insert_views.insert_dataset),
     # path('insert_one/', insert_views.insert_one),
     # path('insert_two/', insert_views.insert_two),
@@ -52,6 +52,7 @@ urlpatterns = [
     path('get_json/', pathTree.get_json_file),
 
     path('index/', protein_views.get_protein_list, name="proteins"),
+    # path('export_excel/', protein_views.export_excel, name="excel"),
 
     path('plot/', plot_views.get_pic_list, name="plot"),
 
@@ -59,4 +60,7 @@ urlpatterns = [
     path('networks/', cyviews.create_network),
     path('do_mcl/', cyviews.do_mcl),
     path('color/', cyviews.do_coloring),
+    path('export_pic/', protein_views.download1, name="pic"),
+
+    path('sidebar/', plot_views.get_child),
 ]
