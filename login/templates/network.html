@@ -29,17 +29,92 @@
             opacity: 0.7;
         }
 
-        #help_btn {
-            display: none;
-            width: 500px;
-            height: 300px;
-            border: 1px solid #c0c0c0;
-            background: #ffffff;
-            position: absolute;
-            left: 50%;
-            top: 20%;
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #8f8b8b;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
         }
 
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #ffffff;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #8f8b8b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 18px;
+            }
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 4px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .modal-body {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .scoll-tree {
+            width: 5000px;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -118,8 +193,6 @@
                         },
                         layout: {name: 'cose'}
                     });
-                    alertNode()
-                    double_click_node()
                 }
             })
         }
@@ -160,8 +233,6 @@
                         },
                         layout: {name: 'cose'}
                     });
-                    alertNode()
-                    double_click_node()
                 }
             })
         }
@@ -185,13 +256,9 @@
                         "curve-style": "bezier",
                         "target-arrow-shape": "triangle"
                     })
-                    alertNode()
-                    double_click_node()
                 }
             })
         }
-
-
     </script>
 </head>
 <body>
@@ -217,29 +284,51 @@
 </section>
 <div class="col-sm-4">
     <section class="panel">
-        <div class="panel-heading">
-            please select a network:
+        <!-- sidebar-->
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <a href="{% url 'help' %}" target="_blank">Help</a>
+            <a class="" data-toggle="modal" data-target="#myModal">
+                nodes and edges
+            </a>
         </div>
-        <p>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                information
-            </button>
-        </p>
-        <div>
-            <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                <div class="card card-body" style="width: 300px;" id="node_data">
-                    呜呜呜呜困死了好烦
+        <div id="main">
+            <button class="openbtn" onclick="openNav()">☰</button>
+        </div>
+
+        <!-- modal-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Nodes and Edges
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="scoll-tree">
+                            <a>Node Table</a>
+                            <table id="nodeTable"></table>
+                            <a>Edge Table</a>
+                            <table id="edgeTable"></table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <dialog id="dialog">
-            <div>dialog</div>
-            <button id="btn-close">close</button>
-        </dialog>
 
-        <button id="btn-open">how to operate cytoscape</button>
 
+        <div class="panel-heading">
+            please select a network:
+        </div>
         <button id="downloadpng" onclick="downLoadImg()">download image</button>
 
         <select id="network_id" class="form-control form-control-placeholder">
@@ -265,20 +354,6 @@
 </body>
 <script>
 
-    var btnOpen = document.querySelector("#btn-open");
-    var btnClose = document.querySelector("#btn-close");
-    var dialog = document.querySelector("#dialog");
-
-    // 打开弹窗
-    btnOpen.addEventListener("click", function () {
-        dialog.show();
-    });
-
-    // 关闭弹窗
-    btnClose.addEventListener("click", function () {
-        dialog.close();
-    });
-
     function downLoadImg() {
         var text = window.cy.png({'output': 'blob'});
         console.log(text)
@@ -291,6 +366,110 @@
         a.download = 'PlaqueMS.png';
         document.body.appendChild(a);
         a.click();
+    }
+
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        $("#nodeTable").html("");
+        $("#edgeTable").html("");
+        showNodeTable()
+        showEdgeTable()
+    }
+
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+
+    function showNodeTable() {
+        // 获取到所有选中的的data
+        jsonList = cy.$('node:selected').jsons()
+        //获取到所有的key
+        keyList = Object.keys(jsonList[0].data)
+
+        // insert table header
+        var tr = document.createElement("tr");
+        //通过for in 将stuObj.stu[i]内的数据进行遍历
+        for (var k in keyList) {
+            //创建元素对象td
+            var td = document.createElement("td");
+            //为td元素对象赋值，并将td文本内容添加到td上
+            td.appendChild(document.createTextNode(keyList[k]));
+            //将td元素节点添加到tr上
+            tr.appendChild(td);
+        }
+        //将tr元素节点添加到table上
+        document.getElementById("nodeTable").appendChild(tr);
+
+        // 过滤data换成list
+        dataList = []
+        for (var i = 0; i < jsonList.length; i++) {
+            dataList.push(jsonList[i].data)
+        }
+        for (var ele in dataList) {
+            //每次循环创建一个tr，实现换行
+            var trval = document.createElement("tr")
+            //获取字典中的数组
+            var data = dataList[ele];
+            for (var info in data) {
+                //创建td标签
+                var tdval = document.createElement("td")
+                //获取每次循环的值[id，name，sex]]
+                var text = data[info]
+                //将获取的值绑定到td标签上
+                tdval.innerText = text
+                //将td标签绑定到tr上
+                trval.appendChild(tdval)
+            }
+            //将tr标签绑定到tbody上
+            document.getElementById("nodeTable").appendChild(trval);
+        }
+    }
+
+    function showEdgeTable() {
+        // 获取到所有选中的的data
+        jsonList = cy.$('edge:selected').jsons()
+        //获取到所有的key
+        keyList = Object.keys(jsonList[0].data)
+
+        // insert table header
+        var tr = document.createElement("tr");
+        //通过for in 将stuObj.stu[i]内的数据进行遍历
+        for (var k in keyList) {
+            //创建元素对象td
+            var td = document.createElement("td");
+            //为td元素对象赋值，并将td文本内容添加到td上
+            td.appendChild(document.createTextNode(keyList[k]));
+            //将td元素节点添加到tr上
+            tr.appendChild(td);
+        }
+        //将tr元素节点添加到table上
+        document.getElementById("edgeTable").appendChild(tr);
+
+        // 过滤data换成list
+        dataList = []
+        for (var i = 0; i < jsonList.length; i++) {
+            dataList.push(jsonList[i].data)
+        }
+        for (var ele in dataList) {
+            //每次循环创建一个tr，实现换行
+            var trval = document.createElement("tr")
+            //获取字典中的数组
+            var data = dataList[ele];
+            for (var info in data) {
+                //创建td标签
+                var tdval = document.createElement("td")
+                //获取每次循环的值[id，name，sex]]
+                var text = data[info]
+                //将获取的值绑定到td标签上
+                tdval.innerText = text
+                //将td标签绑定到tr上
+                trval.appendChild(tdval)
+            }
+            //将tr标签绑定到tbody上
+            document.getElementById("edgeTable").appendChild(trval);
+        }
     }
 
 </script>

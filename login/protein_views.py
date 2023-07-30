@@ -78,19 +78,6 @@ def get_protein_list(request):
     }
     return render(request, "protein.html", context)
 
-
-def download1(request):
-    file_path = r"static/example.svg"
-    try:
-        r = HttpResponse(open(file_path, "rb"))
-        print(r)
-        r["content_type"] = "application/octet-stream"
-        r["Content-Disposition"] = "attachment;filename=pic.svg"
-        return r
-    except Exception:
-        raise Http404("Download error")
-
-
 # 导出excel数据
 # def export_excel(request):
 #     # 设置HTTPResponse的类型

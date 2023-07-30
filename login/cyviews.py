@@ -207,3 +207,7 @@ def download1(request):
         return r
     except Exception:
         raise Http404("Download error")
+
+
+def showHelpPage(request):
+    return render(request, "help.html")
