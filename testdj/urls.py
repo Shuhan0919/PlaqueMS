@@ -39,7 +39,7 @@ from login import protein_views, cyviews, plot_views, pathTree, insert_views, ne
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # path('insert_proteins/', insert_views.insert_protein_data),
+    path('insert_proteins/', insert_views.insert_protein_data),
     # path('insert_plot/', insert_views.insert_statistics), # todo暂时好像没用上
     # path('insert_dataset/', insert_views.insert_dataset),
     path('insert_one/', insert_views.insert_one),

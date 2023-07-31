@@ -29,11 +29,11 @@ def get_protein_list(request):
     if gene_name and uniprotkb_id:
         name_search_list = gene_name.split(",")
         id_search_list = uniprotkb_id.split(",")
-        query = query.filter(Q(uniprotkb_id__in=id_search_list) | Q(gene_name__in=name_search_list))
+        query = query.filter(Q(uniprot_accession_id__in=id_search_list) | Q(gene_name__in=name_search_list))
 
     elif uniprotkb_id and gene_name == '':
         id_search_list = uniprotkb_id.split(",")
-        query = query.filter(uniprotkb_id__in=id_search_list)
+        query = query.filter(uniprot_accession_id__in=id_search_list)
 
     elif uniprotkb_id == '' and gene_name:
         name_search_list = gene_name.split(",")

@@ -23,7 +23,7 @@ def insert_protein_data(request):
 
     result = pd.merge(df_uni, df_name, left_on='Uniprot_Accession_ID', right_on='Uniprot_Accession_ID')
     result = result[["Uniprot_Accession_ID", "UniProtKB_ID", "Gene_Name"]]
-    result["UniProtKB_ID"] = result["UniProtKB_ID"].str[:-6]
+    # result["UniProtKB_ID"] = result["UniProtKB_ID"].str[:-6]
     # result.to_csv("a.csv")
     array = np.array(result)
     list = array.tolist()
@@ -276,7 +276,7 @@ def insert_statistics(folder, experiment_id):
             doc = Statistics()
             doc.doc_id = id
             doc.filename = filename
-            doc.filepath = filepath_prefix + filename
+            doc.filepath = folder + filename
             doc.doc_type = "03"
             doc_and_experiment = DocAndExperiment()
             second_id = str(uuid.uuid4())

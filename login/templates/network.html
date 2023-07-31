@@ -235,7 +235,7 @@
         <div class="panel-heading">
             please select a network coloring file:
         </div>
-        <select id="select-diff">
+        <select id="select-diff" onchange="get_diff_file()">
         </select>
         <button type="submit" onclick="do_coloring()">do coloring</button>
 
@@ -361,27 +361,44 @@
 
     }
 
+    var logFile = ""
+
+    function get_diff_file() {
+        var obj = document.getElementById("select-diff")
+        logFile = obj.options[obj.selectedIndex].value
+        console.log(logFile)
+    }
+
     function do_coloring() {
-        $.ajax({
-            type: "GET",
-            url: "/color",
-            success: function (res) {
-                cy.destroy()
-                window.cy = cytoscape({
-                    container: document.getElementById('cy'),
-                    style: res.style,
-                    elements: {
-                        nodes: res.nodes,
-                        edges: res.edges,
-                    },
-                    layout: {name: 'cose'}
-                });
-                cy.edges('edge').style({
-                    "curve-style": "bezier",
-                    "target-arrow-shape": "triangle"
-                })
-            }
-        })
+        if (document.getElementById("select-diff").options[document.getElementById("select-diff").selectedIndex].value) {
+            $.ajax({
+                type: "GET",
+                url: "/color",
+                data: {
+                    doc_id: logFile
+                },
+                success: function (res) {
+                    cy.destroy()
+                    window.cy = cytoscape({
+                        container: document.getElementById('cy'),
+                        style: res.style,
+                        elements: {
+                            nodes: res.nodes,
+                            edges: res.edges,
+                        },
+                        layout: {name: 'cose'}
+                    });
+                    cy.edges('edge').style({
+                        "curve-style": "bezier",
+                        "target-arrow-shape": "triangle"
+                    })
+                }
+            })
+        } else {
+            alert("please select a diff file");
+        }
+
+
     }
 
     function downLoadImg() {

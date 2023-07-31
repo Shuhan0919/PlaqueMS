@@ -9,17 +9,17 @@
       "tag": "path",
       "nodes": [
         {
-          "id": "28ada1e3-0970-4525-8461-0b820bc405e0",
+          "id": "1c45f334-a1f7-4f83-b3c5-13a45e09e6b0",
           "text": "SDS TMT",
           "tag": "path",
           "nodes": [
             {
-              "id": "2213c201-b9a3-4c8f-ba3f-e97ed5f1ca02",
+              "id": "283305e4-aedd-4659-830a-44ea62fd82ee",
               "text": "core",
               "tag": "path",
               "nodes": [
                 {
-                  "id": "74423e7e-d2ad-4103-b328-a3020fa0de9e",
+                  "id": "52d5eca3-b5fa-44ed-853b-a65a3d8ba895",
                   "text": "sds_core_filtered_directed_network.txt",
                   "tag": "network_file",
                   "nodes": []
@@ -27,12 +27,12 @@
               ]
             },
             {
-              "id": "64303841-8c7b-47fa-adcc-54ca426bc3cd",
+              "id": "9e800f9b-fec6-44c2-a07a-ef38a4e1e9c4",
               "text": "periphery",
               "tag": "path",
               "nodes": [
                 {
-                  "id": "41835f20-2bb4-4b78-a8e4-b439bfc094b0",
+                  "id": "131506a4-514f-4459-abb1-8fef43ca8fa2",
                   "text": "sds_periphery_filtered_directed_network.txt",
                   "tag": "network_file",
                   "nodes": []
@@ -42,17 +42,17 @@
           ]
         },
         {
-          "id": "cbb5e160-ee34-4490-b0d8-10aceb1f9a12",
+          "id": "349ab7d5-0d64-4e0c-8b30-9c7e64588754",
           "text": "GUHCL TMT",
           "tag": "path",
           "nodes": [
             {
-              "id": "1033b9e2-dba5-4fbe-add1-d927ce31b3ce",
+              "id": "4eb00036-4360-4250-afff-d19f0f8c3244",
               "text": "periphery",
               "tag": "path",
               "nodes": [
                 {
-                  "id": "640db436-931e-43ff-a8da-b53a334b9e3e",
+                  "id": "f5322d2f-8dc1-4e68-bc17-384cb55f9953",
                   "text": "gu_periphery_filtered_directed_network.txt",
                   "tag": "network_file",
                   "nodes": []
@@ -60,12 +60,12 @@
               ]
             },
             {
-              "id": "4b9af7d5-d01c-42ce-9372-1b597d52d68b",
+              "id": "d715589f-ea04-4c1f-b78e-1b0573e57214",
               "text": "core",
               "tag": "path",
               "nodes": [
                 {
-                  "id": "2df8bb37-dd12-4132-afc8-dac349c915b1",
+                  "id": "6c770831-ee04-478a-bdc9-026a40f41d8c",
                   "text": "gu_core_filtered_directed_network.txt",
                   "tag": "network_file",
                   "nodes": []
@@ -75,31 +75,31 @@
           ]
         },
         {
-          "id": "f3f64a92-4767-47fe-bc8e-cf76bee129d9",
+          "id": "87a708ea-c3dc-4fe8-94f8-6d5d7343526b",
           "text": "NACL TMT",
           "tag": "path",
           "nodes": [
             {
-              "id": "2f2e64dc-31e8-4151-ac9d-efb2002b113d",
-              "text": "core",
+              "id": "44c13098-64d5-494a-bd83-97cf89b941b7",
+              "text": "periphery",
               "tag": "path",
               "nodes": [
                 {
-                  "id": "fb058b14-205b-4a30-8acc-ba09452ae326",
-                  "text": "nacl_core_filtered_directed_network.txt",
+                  "id": "72357e42-aa6b-4167-8b94-56330209a72e",
+                  "text": "nacl_periphery_filtered_directed_network.txt",
                   "tag": "network_file",
                   "nodes": []
                 }
               ]
             },
             {
-              "id": "dde30e66-ab99-4e1d-8186-5484f7755e8a",
-              "text": "periphery",
+              "id": "e9e52f1e-3a13-47f7-9a55-f376c0870fdc",
+              "text": "core",
               "tag": "path",
               "nodes": [
                 {
-                  "id": "9ee758ce-2a1d-4e38-9ee3-baa58083fea1",
-                  "text": "nacl_periphery_filtered_directed_network.txt",
+                  "id": "f4e26414-b8c2-4015-a5ff-3acd55b262c3",
+                  "text": "nacl_core_filtered_directed_network.txt",
                   "tag": "network_file",
                   "nodes": []
                 }

@@ -104,7 +104,11 @@ def get_child(id, child_list=[]):
 # todo 获取可以变颜色的file
 @api_view(['GET'])
 def get_diff(request):
-    network_id = "74423e7e-d2ad-4103-b328-a3020fa0de9e"
+    network_id = request.GET.get("network_id", "")
+
+    network = Networks.objects.get(network_id=network_id)
+    print(network)
+
     relation = NetworkAndExperiment.objects.get(network_id=network_id)
     exp = ExperimentsTypes.objects.get(experiment_id=relation.experiment_id)
     child_list = get_child(exp.experiment_id)
