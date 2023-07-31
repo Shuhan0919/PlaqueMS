@@ -27,8 +27,7 @@ def create_network(request):
     network = Networks.objects.get(network_id=network_id)
     print(network)
 
-    gu_core_data = pd.read_table("/Users/shuhanliu/Downloads/individual_project/PlaqueMS_data/PlaqueMS_data/Networks"
-                                 "/gu_core_filtered_directed_network.txt")
+    gu_core_data = pd.read_table(network.filepath)
     edge_data = {'source': gu_core_data["Regulator"],
                  'target': gu_core_data["Target"],
                  'MI': gu_core_data["MI"],
@@ -36,7 +35,7 @@ def create_network(request):
                  'directionality': gu_core_data["directionality"]
                  }
     edges = pd.DataFrame(data=edge_data, columns=['source', 'target', 'MI', 'pvalue', 'directionality'])
-    p4c.create_network_from_data_frames(edges=edges, title='gu_core network', collection="gu_core collection")
+    p4c.create_network_from_data_frames(edges=edges, title=network.filename, collection=network.filename)
 
     headers = {
         'accept': 'application/json',
@@ -59,6 +58,7 @@ def create_network(request):
     json_style = r_style.json()
     style = json_style[0]["style"]
     return Response({'nodes': nodes, 'edges': edges, 'style': style})
+    # return HttpResponse("success")
 
 
 @api_view(['GET'])

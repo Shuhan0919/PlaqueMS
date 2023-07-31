@@ -34,7 +34,7 @@ schema_view = get_schema_view(
 
 from django.contrib import admin
 from django.urls import path
-from login import protein_views, cyviews, plot_views, pathTree, insert_views
+from login import protein_views, cyviews, plot_views, pathTree, insert_views, networkTree
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,14 +42,17 @@ urlpatterns = [
     # path('insert_proteins/', insert_views.insert_protein_data),
     # path('insert_plot/', insert_views.insert_statistics), # todo暂时好像没用上
     # path('insert_dataset/', insert_views.insert_dataset),
-    # path('insert_one/', insert_views.insert_one),
-    # path('insert_two/', insert_views.insert_two),
-    # path('insert_three/', insert_views.insert_three),
+    path('insert_one/', insert_views.insert_one),
+    path('insert_two/', insert_views.insert_two),
+    path('insert_three/', insert_views.insert_three),
     path('format/', insert_views.format_file_name),
     path('get_dir/', insert_views.get_path),
 
     path('tree/', pathTree.path_to_dict),
     path('get_json/', pathTree.get_json_file),
+    path('network_json/', networkTree.path_to_dict),
+    path('get_network_json/', networkTree.get_json_file),
+    path('get_diff/', networkTree.get_diff),
 
     path('index/', protein_views.get_protein_list, name="proteins"),
     # path('export_excel/', protein_views.export_excel, name="excel"),

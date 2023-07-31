@@ -1,5 +1,6 @@
 from django.shortcuts import HttpResponse
-from login.models import Proteins, Datasets, Statistics, ExperimentsTypes, DocAndExperiment
+from login.models import Proteins, Datasets, Statistics, ExperimentsTypes, DocAndExperiment, Networks, \
+    NetworkAndExperiment
 import os
 import pandas as pd
 import csv
@@ -102,7 +103,7 @@ def insert_two(request):
                     second_id = str(uuid.uuid4())
                     second.experiment_id = second_id
                     second.pathname = filename.replace("_", " ")
-                    second.path_type = "00"
+                    second.path_type = "01"
                     second.path = second_folder + filename
                     second.parent_id = first_id
                     second.dataset_id = "972d974a-e013-44a5-9e68-6e275f08765f"
@@ -122,7 +123,9 @@ def insert_two(request):
                     third_folder = second_folder + filename + '/'
                     third_files = os.listdir(third_folder)
                     for filename in third_files:  # calcified
-                        if filename.__contains__("yes_or_no"):  # yes or no
+                        if filename.__contains__("network"):
+                            insert_network(third_folder, filename, second_id)
+                        elif filename.__contains__("yes_or_no"):  # yes or no
                             third = ExperimentsTypes()
                             third_id = str(uuid.uuid4())
                             third.experiment_id = third_id
@@ -152,7 +155,7 @@ def insert_two(request):
                             third_id = str(uuid.uuid4())
                             third.experiment_id = third_id
                             third.pathname = filename.replace("_", " ")
-                            third.path_type = "00"
+                            third.path_type = "01"
                             third.path = third_folder + filename
                             third.parent_id = second_id
                             third.dataset_id = "972d974a-e013-44a5-9e68-6e275f08765f"
@@ -283,6 +286,22 @@ def insert_statistics(folder, experiment_id):
             doc.save()
             doc_and_experiment.save()
     return HttpResponse('insert complete')
+
+
+def insert_network(folder, filename, experiment_id):
+    id = str(uuid.uuid4())
+    network = Networks()
+    network.network_id = id
+    network.filename = filename
+    network.filepath = folder + filename
+    network_and_experiment = NetworkAndExperiment()
+    second_id = str(uuid.uuid4())
+    network_and_experiment.id = second_id
+    network_and_experiment.network_id = id
+    network_and_experiment.experiment_id = experiment_id
+    # insert
+    network.save()
+    network_and_experiment.save()
 
 
 fpath = "/Users/shuhanliu/Downloads/pycharmProject/testdj/static/PlaqueMS/Carotid_Plaques_Vienna_Cohort/Olink_Explore/Statistics/core/yes_or_no_for_all_medication"

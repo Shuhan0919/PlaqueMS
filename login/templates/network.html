@@ -156,109 +156,6 @@
                 layout: {name: 'cose'}
             });
         })
-
-        var tree = []
-        window.onload = function init() {
-            $.ajax({
-                type: "GET",
-                url: "/get_json",
-                success: function (res) {
-                    tree = res.data.nodes
-                    $('#tree').treeview({
-                        data: tree,
-                        highlightSelected: true,
-                        multiSelect: false,
-                    });
-                }
-            })
-        }
-
-        function load_network() {
-
-            $.ajax({
-                type: "GET",
-                url: "/networks",
-                data: {
-                    network_id: document.getElementById('network_id').value
-                },
-                success: function (res) {
-                    cy.destroy()
-                    console.log(res.nodes)
-                    window.cy = cytoscape({
-                        container: document.getElementById('cy'),
-                        style: res.style,
-                        elements: {
-                            nodes: res.nodes,
-                            edges: res.edges,
-                        },
-                        layout: {name: 'cose'}
-                    });
-                }
-            })
-        }
-
-        function alertNode() {
-            cy.on('onetap', 'node', function (e) {
-                var node = e.target;
-                document.getElementById('node_data').val()
-                alert('tapped ' + node.data("name"));
-
-            });
-        }
-
-
-        function double_click_node() {
-            cy.on('dbltap', 'node', function (e) {
-                var node = e.target;
-                cy.zoom({
-                    level: 1.5,
-                    position: cy.getElementById(node.id).position()
-                });
-            });
-        }
-
-        function do_mcl() {
-            $.ajax({
-                type: "GET",
-                url: "/do_mcl",
-                success: function (res) {
-                    cy.destroy()
-                    console.log(res.style)
-                    window.cy = cytoscape({
-                        container: document.getElementById('cy'),
-                        style: res.style,
-                        elements: {
-                            nodes: res.nodes,
-                            edges: res.edges,
-                        },
-                        layout: {name: 'cose'}
-                    });
-                }
-            })
-        }
-
-        function do_coloring() {
-            $.ajax({
-                type: "GET",
-                url: "/color",
-                success: function (res) {
-                    cy.destroy()
-                    window.cy = cytoscape({
-                        container: document.getElementById('cy'),
-                        style: res.style,
-                        elements: {
-                            nodes: res.nodes,
-                            edges: res.edges,
-                        },
-                        layout: {name: 'cose'}
-                    });
-                    cy.edges('edge').style({
-                        "curve-style": "bezier",
-                        "target-arrow-shape": "triangle"
-                    })
-                }
-            })
-        }
     </script>
 </head>
 <body>
@@ -324,35 +221,168 @@
                 </div>
             </div>
         </div>
-
-
+        <button type="submit" onclick="load_network()">show network</button>
+        <button type="submit" onclick="do_mcl()">do cluster</button>
+        <button id="downloadpng" onclick="downLoadImg()">download image</button>
         <div class="panel-heading">
             please select a network:
         </div>
-        <button id="downloadpng" onclick="downLoadImg()">download image</button>
+        <a id="selected-network" value=""></a>
+        <div id="network_tree"></div>
 
-        <select id="network_id" class="form-control form-control-placeholder">
-            <option value="n1">gu_core_filtered_directed_network</option>
-            <option value="n2">gu_periphery_filtered_directed_network</option>
-            <option value="n3">nacl_core_filtered_directed_network</option>
-            <option value="n4">nacl_periphery_filtered_directed_network</option>
-            <option value="n5">sds_core_filtered_directed_network</option>
-            <option value="n6">sds_periphery_filtered_directed_network</option>
-        </select>
-        <br><br><br><br><br>
-        <button type="submit" onclick="load_network()">show network</button>
-        <button type="submit" onclick="do_mcl()">do cluster</button>
         <br>
-        <button type="submit" onclick="do_coloring()">do coloring</button>
+
         <div class="panel-heading">
             please select a network coloring file:
         </div>
-        <div id="tree"></div>
+        <select id="select-diff">
+        </select>
+        <button type="submit" onclick="do_coloring()">do coloring</button>
+
     </section>
 </div>
 <div id="cy"></div>
 </body>
 <script>
+
+    var tree = []
+    window.onload = function init() {
+        $.ajax({
+            type: "GET",
+            url: "/get_network_json",
+            success: function (res) {
+                tree = res.data.nodes
+                $('#network_tree').treeview({
+                    data: tree,
+                    highlightSelected: true,
+                    multiSelect: false,
+                    onNodeSelected: function (event, data) {
+                        if (data.tag != "network_file") {
+                            alert("please select a network file");
+                        } else {
+                            document.getElementById("selected-network").value = data.id
+                            get_diff(data.id)
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+    function load_network() {
+        if (document.getElementById("selected-network").value) {
+            $.ajax({
+                type: "GET",
+                url: "/networks",
+                data: {
+                    network_id: document.getElementById("selected-network").value
+                },
+                success: function (res) {
+                    cy.destroy()
+                    console.log(res.nodes)
+                    window.cy = cytoscape({
+                        container: document.getElementById('cy'),
+                        style: res.style,
+                        elements: {
+                            nodes: res.nodes,
+                            edges: res.edges,
+                        },
+                        layout: {name: 'cose'}
+                    });
+                }
+            })
+        } else {
+            alert("please select a network file");
+        }
+
+
+    }
+
+    function get_diff(network_id) {
+        console.log(network_id)
+        $.ajax({
+            type: "GET",
+            url: "/get_diff",
+            data: {
+                network_id: network_id
+            },
+            success: function (res) {
+                doc_list = res.data
+                var obj = document.getElementById("select-diff")
+                for (var i = 0; i < doc_list.length; i++) {
+                    obj.options.add(new Option(doc_list[i].filename, doc_list[i].doc_id))
+                }
+            }
+        })
+    }
+
+    function alertNode() {
+        cy.on('onetap', 'node', function (e) {
+            var node = e.target;
+            document.getElementById('node_data').val()
+            alert('tapped ' + node.data("name"));
+
+        });
+    }
+
+
+    function double_click_node() {
+        cy.on('dbltap', 'node', function (e) {
+            var node = e.target;
+            cy.zoom({
+                level: 1.5,
+                position: cy.getElementById(node.id).position()
+            });
+        });
+    }
+
+    function do_mcl() {
+        if (document.getElementById("selected-network").value) {
+            $.ajax({
+                type: "GET",
+                url: "/do_mcl",
+                success: function (res) {
+                    cy.destroy()
+                    console.log(res.style)
+                    window.cy = cytoscape({
+                        container: document.getElementById('cy'),
+                        style: res.style,
+                        elements: {
+                            nodes: res.nodes,
+                            edges: res.edges,
+                        },
+                        layout: {name: 'cose'}
+                    });
+                }
+            })
+        } else {
+            alert("please select a network file");
+        }
+
+    }
+
+    function do_coloring() {
+        $.ajax({
+            type: "GET",
+            url: "/color",
+            success: function (res) {
+                cy.destroy()
+                window.cy = cytoscape({
+                    container: document.getElementById('cy'),
+                    style: res.style,
+                    elements: {
+                        nodes: res.nodes,
+                        edges: res.edges,
+                    },
+                    layout: {name: 'cose'}
+                });
+                cy.edges('edge').style({
+                    "curve-style": "bezier",
+                    "target-arrow-shape": "triangle"
+                })
+            }
+        })
+    }
 
     function downLoadImg() {
         var text = window.cy.png({'output': 'blob'});
