@@ -187,7 +187,7 @@
             <a class="" data-toggle="modal" data-target="#myModalHelp">
                 help
             </a>
-            <a class="" data-toggle="modal" data-target="#myModal">
+            <a class="" data-toggle="modal" data-target="#myModal" onclick="get_tabledata()">
                 nodes and edges
             </a>
         </div>
@@ -403,7 +403,7 @@
     }
 
     function do_coloring() {
-        if (document.getElementById("select-diff").options[document.getElementById("select-diff").selectedIndex].value) {
+        if (logFile) {
             $.ajax({
                 type: "GET",
                 url: "/color",
@@ -430,8 +430,6 @@
         } else {
             alert("please select a diff file");
         }
-
-
     }
 
     function downLoadImg() {
@@ -451,15 +449,18 @@
     function openNav() {
         document.getElementById("mySidebar").style.width = "250px";
         document.getElementById("main").style.marginLeft = "250px";
-        $("#nodeTable").html("");
-        $("#edgeTable").html("");
-        showNodeTable()
-        showEdgeTable()
     }
 
     function closeNav() {
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("main").style.marginLeft = "0";
+    }
+
+    function get_tabledata() {
+        $("#nodeTable").html("");
+        $("#edgeTable").html("");
+        showNodeTable()
+        showEdgeTable()
     }
 
     function showNodeTable() {

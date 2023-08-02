@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view, renderer_classes
 import requests
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from login.models import Networks, Statistics
+from login.models import Networks, Statistics, DiffResult
 
 
 def try_curl(request):
@@ -117,7 +117,7 @@ def do_mcl(request):
 def do_coloring(request):
     doc_id = request.GET.get("doc_id", "")
 
-    doc = Statistics.objects.get(doc_id=doc_id)
+    doc = DiffResult.objects.get(doc_id=doc_id)
     print("============doc")
     print(doc)
     gu_core_CalcifiedVSNon_calcified_data = pd.read_table(doc.filepath, index_col=0)
