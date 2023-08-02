@@ -1,6 +1,6 @@
 from django.shortcuts import HttpResponse
 from login.models import Proteins, Datasets, Statistics, ExperimentsTypes, DocAndExperiment, Networks, \
-    NetworkAndExperiment
+    NetworkAndExperiment, DiffResult
 import os
 import pandas as pd
 import csv
@@ -345,17 +345,34 @@ def get_path(request):
     return HttpResponse('dir complete')
 
 
-def insert_diff(folder, filename, experiment_id):
-    id = str(uuid.uuid4())
-    network = Networks()
-    network.network_id = id
-    network.filename = filename
-    network.filepath = folder + filename
-    network_and_experiment = NetworkAndExperiment()
-    second_id = str(uuid.uuid4())
-    network_and_experiment.id = second_id
-    network_and_experiment.network_id = id
-    network_and_experiment.experiment_id = experiment_id
-    # insert
-    network.save()
-    network_and_experiment.save()
+
+def insert_diff(request):
+    network_list = Networks.objects.all()
+    for network in network_list:
+        if network.filename.__contains__("gu_core"):
+            insert_diff_obj("gu_core", network.network_id)
+        elif network.filename.__contains__("gu_periphery"):
+            insert_diff_obj("gu_periphery", network.network_id)
+        elif network.filename.__contains__("nacl_core"):
+            insert_diff_obj("na_core", network.network_id)
+        elif network.filename.__contains__("nacl_periphery"):
+            insert_diff_obj("na_periphery", network.network_id)
+        elif network.filename.__contains__("sds_core"):
+            insert_diff_obj("sds_core", network.network_id)
+        elif network.filename.__contains__("sds_periphery"):
+            insert_diff_obj("sds_periphery", network.network_id)
+    return HttpResponse('insert complete')
+
+
+def insert_diff_obj(string, network_id):
+    folder = 'static/PlaqueMS/Carotid_Plaques_Vienna_Cohort/Statistics/'
+    filenames = os.listdir(folder)
+    for filename in filenames:
+        if filename.__contains__(string):
+            diff_result = DiffResult()
+            first_id = str(uuid.uuid4())
+            diff_result.doc_id = first_id
+            diff_result.filename = filename
+            diff_result.filepath = folder + filename
+            diff_result.network_id = network_id
+            diff_result.save()

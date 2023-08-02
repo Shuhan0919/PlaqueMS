@@ -45,6 +45,7 @@ urlpatterns = [
     path('insert_one/', insert_views.insert_one),
     path('insert_two/', insert_views.insert_two),
     path('insert_three/', insert_views.insert_three),
+    path('insert_diff/', insert_views.insert_diff),
     path('format/', insert_views.format_file_name),
     path('get_dir/', insert_views.get_path),
 
