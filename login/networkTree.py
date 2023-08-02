@@ -112,7 +112,35 @@ def get_diff(request):
     relation = NetworkAndExperiment.objects.get(network_id=network_id)
     exp = ExperimentsTypes.objects.get(experiment_id=relation.experiment_id)
     child_list = get_child(exp.experiment_id)
+    print("==================child_list")
+    print(child_list.__len__())
     doc_ids = DocAndExperiment.objects.values("doc_id").filter(experiment_id__in=child_list)
 
-    doc_list = Statistics.objects.values('doc_id', 'filename', 'filepath').filter(Q(doc_type="03") & Q(doc_id__in=doc_ids))
+
+    doc_list = Statistics.objects.values('doc_id', 'filename', 'filepath').filter(
+        Q(doc_type="03") & Q(doc_id__in=doc_ids))
+    print("==================doc_list")
+    print(doc_list.__len__())
+    return Response({'data': doc_list})
+
+
+@api_view(['GET'])
+def get_diff(request):
+    network_id = request.GET.get("network_id", "")
+
+    network = Networks.objects.get(network_id=network_id)
+    print(network)
+
+    relation = NetworkAndExperiment.objects.get(network_id=network_id)
+    exp = ExperimentsTypes.objects.get(experiment_id=relation.experiment_id)
+    child_list = get_child(exp.experiment_id)
+    print("==================child_list")
+    print(child_list.__len__())
+    doc_ids = DocAndExperiment.objects.values("doc_id").filter(experiment_id__in=child_list)
+
+
+    doc_list = Statistics.objects.values('doc_id', 'filename', 'filepath').filter(
+        Q(doc_type="03") & Q(doc_id__in=doc_ids))
+    print("==================doc_list")
+    print(doc_list.__len__())
     return Response({'data': doc_list})

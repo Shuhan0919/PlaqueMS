@@ -184,7 +184,9 @@
         <!-- sidebar-->
         <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-            <a href="{% url 'help' %}" target="_blank">Help</a>
+            <a class="" data-toggle="modal" data-target="#myModalHelp">
+                help
+            </a>
             <a class="" data-toggle="modal" data-target="#myModal">
                 nodes and edges
             </a>
@@ -213,6 +215,36 @@
                             <a>Edge Table</a>
                             <table id="edgeTable"></table>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModalHelp" tabindex="-1" role="dialog" aria-labelledby="myModalLabelHelp"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>How to operate Cytoscape:</p>
+                        <p>1.Select the network file you want to analyze. </p>
+                        <p>2.Click “show network” button, the network will show on the right size of the page. This may
+                            take some time, please be patient. </p>
+                        <p>3.After showing the network, you can click “do clustering” button. The clustered network will
+                            show on the right size of the page. </p>
+                        <p>4.The next step you can select the result file of different experiments, this data will be
+                            use to change the style of current network. Click “do coloring” button, the styled network
+                            will show on the right size of the page. </p>
+                        <p>5.You can select nodes and edges your interested in, you can see the data of the nodes and
+                            edges you select if you click “nodes and edges” on the sidebar. </p>
+                        <p>6.You can click on download the image of the focused network. </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">close
@@ -260,6 +292,7 @@
                         if (data.tag != "network_file") {
                             alert("please select a network file");
                         } else {
+                            document.getElementById("select-diff").options.length = 0
                             document.getElementById("selected-network").value = data.id
                             get_diff(data.id)
                         }

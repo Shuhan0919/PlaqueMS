@@ -63,7 +63,6 @@ urlpatterns = [
     path('networks/', cyviews.create_network),
     path('do_mcl/', cyviews.do_mcl),
     path('color/', cyviews.do_coloring),
-    path('help/', cyviews.showHelpPage, name="help"),
 
     path('sidebar/', plot_views.get_child),
 ]

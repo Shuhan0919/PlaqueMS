@@ -343,3 +343,19 @@ def get_path(request):
         for dir in dirs:
             print(dir)
     return HttpResponse('dir complete')
+
+
+def insert_diff(folder, filename, experiment_id):
+    id = str(uuid.uuid4())
+    network = Networks()
+    network.network_id = id
+    network.filename = filename
+    network.filepath = folder + filename
+    network_and_experiment = NetworkAndExperiment()
+    second_id = str(uuid.uuid4())
+    network_and_experiment.id = second_id
+    network_and_experiment.network_id = id
+    network_and_experiment.experiment_id = experiment_id
+    # insert
+    network.save()
+    network_and_experiment.save()
