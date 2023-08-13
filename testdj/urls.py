@@ -40,8 +40,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('insert_proteins/', insert_views.insert_protein_data),
-    # path('insert_plot/', insert_views.insert_statistics), # todo暂时好像没用上
-    # path('insert_dataset/', insert_views.insert_dataset),
+
     path('insert_one/', insert_views.insert_one),
     path('insert_two/', insert_views.insert_two),
     path('insert_three/', insert_views.insert_three),
@@ -56,7 +55,6 @@ urlpatterns = [
     path('get_diff/', networkTree.get_diff),
 
     path('index/', protein_views.get_protein_list, name="proteins"),
-    # path('export_excel/', protein_views.export_excel, name="excel"),
 
     path('plot/', plot_views.get_pic_list, name="plot"),
 

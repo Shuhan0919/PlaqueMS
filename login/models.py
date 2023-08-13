@@ -26,7 +26,7 @@ class Datasets(models.Model):
         db_table = 'datasets'
 
 
-# todo
+
 class Networks(models.Model):
     network_id = models.CharField('network_id', primary_key=True, max_length=50)
     filename = models.CharField('filename', max_length=100, default="")
@@ -48,7 +48,6 @@ class Statistics(models.Model):
         db_table = 'statistics'
 
 
-# todo
 class ExperimentsTypes(models.Model):
     experiment_id = models.CharField('experiment_id', primary_key=True, max_length=50)
     pathname = models.CharField('pathname', max_length=100)
@@ -61,7 +60,7 @@ class ExperimentsTypes(models.Model):
         db_table = 'experiments_types'
 
 
-# todo
+
 class DocAndExperiment(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50)
     experiment_id = models.CharField('experiment_id', max_length=50)
@@ -71,7 +70,6 @@ class DocAndExperiment(models.Model):
         db_table = 'doc_and_experiment'
 
 
-# todo
 class NetworkAndExperiment(models.Model):
     id = models.CharField('id', primary_key=True, max_length=50)
     experiment_id = models.CharField('experiment_id', max_length=50)

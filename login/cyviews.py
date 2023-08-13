@@ -17,7 +17,7 @@ def try_curl(request):
     return render(request, "network.html")
 
 
-# todo import network
+# import network
 # @api_view(['GET'])
 @csrf_exempt
 @api_view(['GET', 'POST'])
@@ -36,6 +36,9 @@ def create_network(request):
                  'directionality': gu_core_data["directionality"]
                  }
     edges = pd.DataFrame(data=edge_data, columns=['source', 'target', 'MI', 'pvalue', 'directionality'])
+    # add directionality to a new column with positive or negative
+    edges['directionality-positive'] = edges.apply(lambda a: 1 if a['directionality'] > 0 else 0, axis=1)
+
     p4c.create_network_from_data_frames(edges=edges, title=network.filename, collection=network.filename)
 
     headers = {
@@ -133,7 +136,6 @@ def do_coloring(request):
     df = pd.DataFrame(data=df_dict, columns=['logFC', 'CI.L', 'CI.R', 'AveExpr', 't', 'P.Value', 'adj.P.Val', 'B'])
     p4c.load_table_data(df)
 
-    # todo min max绝对值中取最大，然后分别定下来左右两侧
     min_value = df['logFC'].min()
     max_value = df['logFC'].max()
 
@@ -178,10 +180,20 @@ def do_coloring(request):
         "mappingColumnType": "Double",
         "visualProperty": "EDGE_WIDTH"
     }, {
-        "mappingType": "passthrough",
-        "mappingColumn": "directionality",
-        "mappingColumnType": "Double",
-        "visualProperty": "EDGE_TARGET_ARROW_SHAPE"
+        "mappingType": "discrete",
+        "mappingColumn": "directionality-positive",
+        "mappingColumnType": "Integer",
+        "visualProperty": "EDGE_TARGET_ARROW_SHAPE",
+        "map": [
+            {
+                "key": "0",
+                "value": "ARROW"
+            },
+            {
+                "key": "1",
+                "value": "T"
+            }
+        ]
     }
     ]
     # apply mapping to style
@@ -208,24 +220,3 @@ def do_coloring(request):
     style = json_style[0]["style"]
 
     return Response({'nodes': nodes, 'edges': edges, 'style': style})
-
-
-# @api_view(['GET'])
-# def get_default_style(request):
-#     http = urllib3.PoolManager()
-#     r = http.request('GET', 'http://localhost:1234/v1/styles/size_rank')
-#     jsonData = r.json()
-#     style = jsonData["defaults"]
-#     return Response({'style': style})
-
-
-def download1(request):
-    file_path = r"static/example.svg"
-    try:
-        r = HttpResponse(open(file_path, "rb"))
-        print(r)
-        r["content_type"] = "application/octet-stream"
-        r["Content-Disposition"] = "attachment;filename=pic.svg"
-        return r
-    except Exception:
-        raise Http404("Download error")

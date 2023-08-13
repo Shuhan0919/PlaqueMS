@@ -23,9 +23,6 @@ def get_pic_list(request):
 
     query = Statistics.objects
 
-    # todo 如果是experiment_id if type == 01 直接查所有
-    #   如果 type 00 就找parent_id 直到parent_id=空
-
     if doc_type and experiment_id:
         dataset_flag = False
         datasets = Datasets.objects.all()
@@ -51,10 +48,6 @@ def get_pic_list(request):
                 query = query.filter(doc_id__in=doc_list)
         query = query.filter(doc_type=doc_type)
     elif experiment_id and doc_type == '':
-        # todo 先判断是不是datasets节点 如果是直接搜dataset
-        #  todo experiment中所有dataset_id = id的列表
-        #   再查出来DocAndExperiment id list
-        #     再Statistics in
         dataset_flag = False
         datasets = Datasets.objects.all()
         for dataset in datasets:
@@ -71,7 +64,6 @@ def get_pic_list(request):
                 doc_list = DocAndExperiment.objects.values('doc_id').filter(experiment_id=experiment_id)
                 query = query.filter(doc_id__in=doc_list)
             else:
-                #递归找到所有的子节点
                 child_list = get_child(experiment_id)
                 print("===============")
                 print(child_list)
