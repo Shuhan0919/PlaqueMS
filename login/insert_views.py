@@ -85,7 +85,7 @@ def insert_two(request):
     folder = 'static/PlaqueMS/Carotid_Plaques_Vienna_Cohort/'
     filenames = os.listdir(folder)
     for filename in filenames:  # guhcl
-        if filename != ".DS_Store":
+        if filename != ".DS_Store" and filename != "Statistics":
             experiments_types = ExperimentsTypes()
             first_id = str(uuid.uuid4())
             experiments_types.experiment_id = first_id
