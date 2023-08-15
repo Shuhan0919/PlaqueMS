@@ -19,7 +19,7 @@ Download the clusterMaker2 plugin from the Cytoscape app store. Click Apps--clus
 ### Data preparation:
 Please prepare the PlaqueMS dataset and put it into the static folder in the Django project. Please ensure that all the documents inside have been decompressed, please pay special attention to the _bplot folder. And try to make sure there are no empty folder. I have made some adjustments to the data in the dataset, please paste the Statistics folder from the old dataset Plaque_MS all the way into the PlaqueMS/Carotid_Plaques_Vienna_Cohort folder. Please paste the Networks files in Plaque_MS under the corresponding experiments folder in PlaqueMS.  
 
-You can run 127.0.0.1:8000/format/ to replace all the spaces in the data with underscores, please check all the files in the folder and there are no spaces in the folder before proceeding to the following operation. If this interface is not executed successfully, please click on the file insert_views.py to modify the value of fpath to the path of the current dataset.  
+You can run 127.0.0.1:8000/format/ to replace all the spaces in the filenames and file path with underscores, please check all the files and make sure there are no spaces in the folder name and file name before proceeding to the following operation. If this interface is not executed successfully, please click on the file insert\_views.py to modify the value of fpath to the path of the current dataset. You can replace this value with the location of the inner folder to ensure accuracy.  
 
 This project requires a dataset for visualization, all relative paths are used in insert_views.py, please follow this path to insert. If you have path problem, please check insert_views.py for more detail about file path.  
 
