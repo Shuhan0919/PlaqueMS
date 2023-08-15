@@ -40,7 +40,7 @@ def get_pic_list(request):
                 doc_list = DocAndExperiment.objects.values('doc_id').filter(experiment_id=experiment_id)
                 query = query.filter(doc_id__in=doc_list)
             else:
-                # 递归找到所有的子节点
+                # to find all the children recursively
                 child_list = get_child(experiment_id)
                 print("===============")
                 print(child_list)
